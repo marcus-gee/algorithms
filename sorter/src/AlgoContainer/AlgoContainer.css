@@ -1,0 +1,30 @@
+.AlgoContainer-container {
+  background-color: black;
+  border-radius: 12px;
+  margin: 0px auto 20px;
+  width: 95%;
+}
+
+.AlgoContainer-info {
+  background-color: black;
+  color: white;
+  display: inline-block;
+  margin: 1%;
+  margin-right: 2%;
+  width: 10%;
+}
+
+.AlgoContainer-blocks {
+  background-color: black;
+  height: 550px;
+  margin: auto;
+  vertical-align: top;
+  width: 99%;
+}
+
+.AlgoContainer-block {
+  background-color: white;
+  bottom: 0px;
+  display: inline-block;
+  vertical-align: bottom;
+}

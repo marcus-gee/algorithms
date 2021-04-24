@@ -1,0 +1,32 @@
+.AlgoPicker-container {
+  border: 1px solid black;
+  border-radius: 12px;
+  display: inline-block;
+  margin: 36px 36px 36px 0px;
+  padding: 10px;
+  vertical-align: top;
+  width: 25%;
+}
+
+.AlgoPicker-name {
+  border: 2px solid #555555;
+  cursor: pointer;
+  display: inline-block;
+  padding: 5px;
+  font-size: 15px;
+  margin: 5px;
+  text-align: center;
+  text-decoration: none;
+  transition-duration: 0.4s;
+  width: 120px;
+}
+
+.AlgoPicker-active {
+  background-color: #555555;
+  color: white;
+}
+
+.AlgoPicker-inactive {
+  background-color: white;
+  color: black;
+}
