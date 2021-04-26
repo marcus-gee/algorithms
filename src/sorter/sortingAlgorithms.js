@@ -127,8 +127,10 @@ function insertionSort(array) {
 /* -------------------------------------------------------------------------- */
 
 function mergeSort() {
-  // todo
   // O(n log(n))
+  let arr = [...array]; // copy array to not change original
+
+  // todo
 }
 
 /* -------------------------------------------------------------------------- */
