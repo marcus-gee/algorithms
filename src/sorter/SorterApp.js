@@ -30,11 +30,14 @@ class SorterApp extends React.Component {
     this.state = {
       selected: [],
       blockNumber: SLIDER_DEFAULT,
-      array: this.generateRandomArray(),
+      array: [],
     };
     this.handleAlgorithmClick = this.handleAlgorithmClick.bind(this);
     this.handleSliderChange = this.handleSliderChange.bind(this);
-    this.handleResetArray = this.handleResetArray.bind(this);
+  }
+
+  componentDidMount() {
+    this.resetArray();
   }
 
   handleAlgorithmClick(value) {
@@ -51,15 +54,11 @@ class SorterApp extends React.Component {
     this.setState({ blockNumber: event.target.value });
   }
 
-  generateRandomArray() {
-    return [...Array(SLIDER_MAX)].map(() =>
-      Math.floor(Math.random() * MAX_BLOCK_LENGTH)
-    );
-  }
-
-  handleResetArray() {
+  resetArray() {
     this.setState({
-      array: this.generateRandomArray(),
+      array: [...Array(SLIDER_MAX)].map(() =>
+        Math.floor(Math.random() * MAX_BLOCK_LENGTH)
+      ),
     });
   }
 
@@ -67,7 +66,7 @@ class SorterApp extends React.Component {
     const header = (
       <div className="SorterApp-header">
         <h1 className="SorterApp-title">Sorter</h1>
-        <div style={{ display: "inline-block", width: "50%" }}>
+        <div className="SorterApp-headerbuttons">
           <div className="SorterApp-algopickercontainer">
             <AlgoPicker
               algorithms={ALGORITHMS}
@@ -95,7 +94,9 @@ class SorterApp extends React.Component {
               </button>
               <button
                 className="SorterApp-actionbutton reset"
-                onClick={this.handleResetArray}
+                onClick={() => {
+                  this.resetArray();
+                }}
               >
                 Reset All
               </button>

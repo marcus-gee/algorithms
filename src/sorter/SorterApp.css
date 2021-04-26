@@ -7,9 +7,14 @@
 .SorterApp-title {
   font-size: 80px;
   display: inline-block;
-  padding-left: 5%;
-  padding-right: 25%;
+  padding: 0% 5%;
+  width: 25%;
   vertical-align: top;
+}
+
+.SorterApp-headerbuttons {
+  display: inline-block;
+  width: 65%;
 }
 
 .SorterApp-algopickercontainer {
@@ -62,7 +67,7 @@
 }
 
 .run {
-  background-color: green;
+  background-color: #29c240;
   color: white;
   margin-right: 10%;
 }
