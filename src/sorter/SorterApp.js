@@ -30,12 +30,11 @@ class SorterApp extends React.Component {
     this.state = {
       selected: [],
       blockNumber: SLIDER_DEFAULT,
-      array: [...Array(SLIDER_MAX)].map(() =>
-        Math.floor(Math.random() * MAX_BLOCK_LENGTH)
-      ),
+      array: this.generateRandomArray(),
     };
     this.handleAlgorithmClick = this.handleAlgorithmClick.bind(this);
     this.handleSliderChange = this.handleSliderChange.bind(this);
+    this.handleResetArray = this.handleResetArray.bind(this);
   }
 
   handleAlgorithmClick(value) {
@@ -50,6 +49,18 @@ class SorterApp extends React.Component {
 
   handleSliderChange(event) {
     this.setState({ blockNumber: event.target.value });
+  }
+
+  generateRandomArray() {
+    return [...Array(SLIDER_MAX)].map(() =>
+      Math.floor(Math.random() * MAX_BLOCK_LENGTH)
+    );
+  }
+
+  handleResetArray() {
+    this.setState({
+      array: this.generateRandomArray(),
+    });
   }
 
   render() {
@@ -76,8 +87,16 @@ class SorterApp extends React.Component {
               />
             </div>
             <div className="SorterApp-actionbuttonscontainer">
-              <button className="SorterApp-actionbutton run">Run All</button>
-              <button className="SorterApp-actionbutton reset">
+              <button
+                className="SorterApp-actionbutton run"
+                onClick={() => console.log("run")}
+              >
+                Run All
+              </button>
+              <button
+                className="SorterApp-actionbutton reset"
+                onClick={this.handleResetArray}
+              >
                 Reset All
               </button>
             </div>

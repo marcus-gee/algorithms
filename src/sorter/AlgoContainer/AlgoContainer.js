@@ -15,21 +15,18 @@ class AlgoContainer extends React.Component {
         </div>
         <button className="AlgoContainer-runbutton">Run</button>
         <div className="AlgoContainer-blocks">
-          {
-            (console.log(this.props.array),
-            this.props.array.map((value, index) => {
-              return (
-                <div
-                  className="AlgoContainer-block"
-                  style={{
-                    height: `${value}px`,
-                    width: `${100 / this.props.array.length}%`,
-                  }}
-                  key={index}
-                ></div>
-              );
-            }))
-          }
+          {this.props.array.map((value, index) => {
+            return (
+              <div
+                className="AlgoContainer-block"
+                style={{
+                  height: `${value}px`,
+                  width: `${100 / this.props.array.length}%`,
+                }}
+                key={index}
+              ></div>
+            );
+          })}
         </div>
       </div>
     );
