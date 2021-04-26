@@ -10,8 +10,22 @@
   color: white;
   display: inline-block;
   margin: 1%;
-  margin-right: 2%;
   width: 10%;
+}
+
+.AlgoContainer-runbutton {
+  background-color: green;
+  border-radius: 4px;
+  color: white;
+  cursor: pointer;
+  float: right;
+  font-size: 15px;
+  margin: 24px;
+  padding: 18px;
+  text-align: center;
+  text-decoration: none;
+  transition-duration: 0.4s;
+  width: 120px;
 }
 
 .AlgoContainer-blocks {

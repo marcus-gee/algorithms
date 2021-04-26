@@ -56,19 +56,33 @@ class SorterApp extends React.Component {
     const header = (
       <div className="SorterApp-header">
         <h1 className="SorterApp-title">Sorter</h1>
-        <AlgoPicker
-          algorithms={ALGORITHMS}
-          selected={this.state.selected}
-          handleAlgorithmClick={this.handleAlgorithmClick}
-        />
-        <Slider
-          slider_value={this.state.blockNumber}
-          slider_min={SLIDER_MIN}
-          slider_max={SLIDER_MAX}
-          slider_default={SLIDER_DEFAULT}
-          slider_step={SLIDER_STEP}
-          handleSliderChange={this.handleSliderChange}
-        />
+        <div style={{ display: "inline-block", width: "50%" }}>
+          <div className="SorterApp-algopickercontainer">
+            <AlgoPicker
+              algorithms={ALGORITHMS}
+              selected={this.state.selected}
+              handleAlgorithmClick={this.handleAlgorithmClick}
+            />
+          </div>
+          <div className="right-wrap">
+            <div className="SorterApp-slidercontainer">
+              <Slider
+                slider_value={this.state.blockNumber}
+                slider_min={SLIDER_MIN}
+                slider_max={SLIDER_MAX}
+                slider_default={SLIDER_DEFAULT}
+                slider_step={SLIDER_STEP}
+                handleSliderChange={this.handleSliderChange}
+              />
+            </div>
+            <div className="SorterApp-actionbuttonscontainer">
+              <button className="SorterApp-actionbutton run">Run All</button>
+              <button className="SorterApp-actionbutton reset">
+                Reset All
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     );
 
@@ -89,10 +103,10 @@ class SorterApp extends React.Component {
     );
 
     return (
-      <div>
+      <>
         <>{header}</>
         <>{body.length ? body : bodyPlaceholder}</>
-      </div>
+      </>
     );
   }
 }

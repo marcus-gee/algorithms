@@ -8,8 +8,12 @@ class Slider extends React.Component {
 
   render() {
     return (
-      <div className="Slider-container">
-        <span>
+      <>
+        <span
+          style={{
+            whiteSpace: "pre",
+          }}
+        >
           <p>
             Number of Blocks:{" "}
             {
@@ -34,7 +38,7 @@ class Slider extends React.Component {
           value={this.props.slider_value}
           onChange={this.props.handleSliderChange}
         />
-      </div>
+      </>
     );
   }
 }

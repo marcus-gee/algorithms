@@ -8,7 +8,7 @@ class AlgoPicker extends React.Component {
 
   render() {
     return (
-      <div className="AlgoPicker-container">
+      <>
         <p>Algorithms:</p>
         {this.props.algorithms.map((algorithm, index) => {
           return (
@@ -25,7 +25,7 @@ class AlgoPicker extends React.Component {
             </button>
           );
         })}
-      </div>
+      </>
     );
   }
 }

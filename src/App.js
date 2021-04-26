@@ -7,14 +7,14 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
-        <div class="App-nav">
-          <Link to="/algorithms" class="link">
+        <div className="App-nav">
+          <Link to="/algorithms" className="link">
             Home
           </Link>
-          <Link to="/algorithms/sorter" class="link">
+          <Link to="/algorithms/sorter" className="link">
             Sorter
           </Link>
-          <Link to="/algorithms/pathfinder" class="link">
+          <Link to="/algorithms/pathfinder" className="link">
             Pathfinder
           </Link>
         </div>

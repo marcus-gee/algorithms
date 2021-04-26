@@ -13,6 +13,7 @@ class AlgoContainer extends React.Component {
           <h3>{`${this.props.name} Sort`}</h3>
           <h5>0.00ms</h5>
         </div>
+        <button className="AlgoContainer-runbutton">Run</button>
         <div className="AlgoContainer-blocks">
           {
             (console.log(this.props.array),
