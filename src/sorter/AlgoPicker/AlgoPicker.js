@@ -10,21 +10,19 @@ class AlgoPicker extends React.Component {
     return (
       <>
         <p>Algorithms:</p>
-        {this.props.algorithms.map((algorithm, index) => {
-          return (
-            <button
-              className={
-                this.props.selected.some((item) => item === algorithm)
-                  ? "AlgoPicker-name AlgoPicker-active"
-                  : "AlgoPicker-name AlgoPicker-inactive"
-              }
-              key={index}
-              onClick={() => this.props.handleAlgorithmClick(algorithm)}
-            >
-              {`${algorithm} Sort`}
-            </button>
-          );
-        })}
+        {this.props.algorithms.map((algorithm, index) => (
+          <button
+            className={
+              this.props.selected.some((item) => item === algorithm)
+                ? "AlgoPicker-name AlgoPicker-active"
+                : "AlgoPicker-name AlgoPicker-inactive"
+            }
+            key={index}
+            onClick={() => this.props.handleAlgorithmClick(algorithm)}
+          >
+            {`${algorithm} Sort`}
+          </button>
+        ))}
       </>
     );
   }

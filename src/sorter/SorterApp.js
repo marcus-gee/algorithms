@@ -106,15 +106,13 @@ class SorterApp extends React.Component {
       </div>
     );
 
-    const body = this.state.selected.map((algorithm, index) => {
-      return (
-        <AlgoContainer
-          name={algorithm}
-          array={this.state.array.slice(0, this.state.blockNumber)}
-          key={index}
-        />
-      );
-    });
+    const body = this.state.selected.map((algorithm, index) => (
+      <AlgoContainer
+        name={algorithm}
+        array={this.state.array.slice(0, this.state.blockNumber)}
+        key={index}
+      />
+    ));
 
     const bodyPlaceholder = (
       <div className="SorterApp-bodyplaceholder">
