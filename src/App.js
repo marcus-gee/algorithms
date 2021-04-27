@@ -8,26 +8,26 @@ class App extends React.Component {
     return (
       <div className="App">
         <div className="App-nav">
-          <Link to="/algorithms" className="link">
+          <Link to="/" className="link">
             Home
           </Link>
-          <Link to="/algorithms/sorter" className="link">
+          <Link to="/sorter" className="link">
             Sorter
           </Link>
-          <Link to="/algorithms/pathfinder" className="link">
+          <Link to="/pathfinder" className="link">
             Pathfinder
           </Link>
         </div>
         <Switch>
-          <Route exact path="/algorithms">
+          <Route exact path="/">
             <div>
               <h2>Home</h2>
             </div>
           </Route>
-          <Route path="/algorithms/sorter">
+          <Route path="/sorter">
             <SorterApp />
           </Route>
-          <Route path="/algorithms/pathfinder">
+          <Route path="/pathfinder">
             <div>
               <h2>Pathfinder</h2>
             </div>
