@@ -1,24 +1,26 @@
-function bubbleSort(array) {
+// good
+export function bubbleSort(array) {
   // O(n^2)
+  let animations = [];
   let arr = [...array]; // copy array to not change original
 
   let n = arr.length;
-  for (i = 0; i < n - 1; i++) {
-    for (j = 0; j < n - i - 1; j++) {
+  for (var i = 0; i < n - 1; i++) {
+    for (var j = 0; j < n - i - 1; j++) {
+      animations.push([[j, j + 1], "comparison"]);
       if (arr[j] > arr[j + 1]) {
-        const temp = arr[j];
-        arr[j] = arr[j + 1];
-        arr[j + 1] = temp;
+        swap(arr, j, j + 1);
+        animations.push([[j, j + 1], "swap"]);
       }
     }
   }
 
-  return arr;
+  return animations;
 }
 
 /* -------------------------------------------------------------------------- */
 
-function bucketSort(array) {
+export function bucketSort(array) {
   // O(n^2)
   let arr = [...array]; // copy array to not change original
 
@@ -38,7 +40,7 @@ function bucketSort(array) {
   let bucketCount = Math.floor((max - min) / bucketSize) + 1;
   var buckets = new Array(bucketCount);
 
-  for (i = 0; i < bucketCount; i++) {
+  for (var i = 0; i < bucketCount; i++) {
     buckets[i] = [];
   }
 
@@ -48,9 +50,9 @@ function bucketSort(array) {
   });
 
   // sort buckets w/ insertionSort
-  sortedArray = [];
+  let sortedArray = [];
   buckets.forEach((bucket) => {
-    sortedBucket = insertionSort(bucket);
+    let sortedBucket = insertionSort(bucket);
     sortedArray = sortedArray.concat(sortedBucket);
   });
 
@@ -59,7 +61,7 @@ function bucketSort(array) {
 
 /* -------------------------------------------------------------------------- */
 
-function heapSort(array) {
+export function heapSort(array) {
   // O(n log(n))
   let arr = [...array]; // copy array to not change original
 
@@ -76,27 +78,20 @@ function heapSort(array) {
     if (right < size && arr[right] > arr[max]) {
       max = right;
     }
-    if (max != i) {
-      // swap
-      const temp = arr[i];
-      arr[i] = arr[max];
-      arr[max] = temp;
-
+    if (max !== i) {
+      swap(arr, i, max);
       heapify(arr, size, max);
     }
   };
 
   let n = arr.length;
   // create heap
-  for (i = Math.floor(n / 2 - 1); i >= 0; i--) {
+  for (var i = Math.floor(n / 2 - 1); i >= 0; i--) {
     heapify(arr, n, i);
   }
 
   for (i = n - 1; i >= 0; i--) {
-    const temp = arr[0];
-    arr[0] = arr[i];
-    arr[i] = temp;
-
+    swap(arr, 0, i);
     heapify(arr, i, 0);
   }
 
@@ -105,28 +100,29 @@ function heapSort(array) {
 
 /* -------------------------------------------------------------------------- */
 
-function insertionSort(array) {
+// good
+export function insertionSort(array) {
   // O(n^2)
+  let animations = [];
   let arr = [...array]; // copy array to not change original
 
   let n = arr.length;
-  for (i = 1; i < n; i++) {
-    let j = i - 1;
-    let curr = arr[i];
-
-    while (j > -1 && arr[j] > curr) {
-      arr[j + 1] = arr[j];
-      j--;
+  for (var i = 1; i < n; i++) {
+    for (var j = i - 1; j > -1; j--) {
+      animations.push([[j, j + 1], "comparison"]);
+      if (arr[j] > arr[j + 1]) {
+        swap(arr, j, j + 1);
+        animations.push([[j, j + 1], "swap"]);
+      } else break;
     }
-    arr[j + 1] = curr;
   }
 
-  return arr;
+  return animations;
 }
 
 /* -------------------------------------------------------------------------- */
 
-function mergeSort() {
+export function mergeSort(array) {
   // O(n log(n))
   let arr = [...array]; // copy array to not change original
 
@@ -135,24 +131,34 @@ function mergeSort() {
 
 /* -------------------------------------------------------------------------- */
 
-function quickSort(array, start = 0, end = array.length - 1) {
+// good
+export function quickSort(
+  array,
+  start = 0,
+  end = array.length - 1,
+  animations = []
+) {
   // O(n^2)
   let arr = [...array]; // copy array to not change original
 
   // recursive implementation
-  const partition = (arr, start, end) => {
-    const pivot = arr[Math.floor((start + end) / 2)];
+  const partition = (arr, start, end, animations) => {
+    const pivotIdx = Math.floor((start + end) / 2);
+    const pivotVal = arr[pivotIdx];
     while (start <= end) {
-      while (arr[start] < pivot) {
+      while (arr[start] < pivotVal) {
+        animations.push([[start, pivotIdx], "comparison"]);
         start++;
       }
-      while (arr[end] > pivot) {
+      while (arr[end] > pivotVal) {
+        animations.push([[end, pivotIdx], "comparison"]);
         end--;
       }
+      animations.push([[start, end], "comparison"]);
       if (start <= end) {
-        const temp = arr[start];
-        arr[start] = arr[end];
-        arr[end] = temp;
+        swap(arr, start, end);
+        animations.push([[start, end], "swap"]);
+
         start++;
         end--;
       }
@@ -163,21 +169,21 @@ function quickSort(array, start = 0, end = array.length - 1) {
   if (start >= end) {
     return;
   }
-  let index = partition(arr, start, end);
+  let index = partition(arr, start, end, animations);
 
   if (start < index - 1) {
-    quickSort(arr, start, index - 1);
+    quickSort(arr, start, index - 1, animations);
   }
   if (index < end) {
-    quickSort(arr, index, end);
+    quickSort(arr, index, end, animations);
   }
 
-  return arr;
+  return animations;
 }
 
 /* -------------------------------------------------------------------------- */
 
-function radixSort(array) {
+export function radixSort(array) {
   // O(nk)
   let arr = [...array]; // copy array to not change original
 
@@ -199,14 +205,14 @@ function radixSort(array) {
   };
 
   let maxLength = longestNum(arr);
-  for (i = 0; i < maxLength; i++) {
+  for (var i = 0; i < maxLength; i++) {
     const bucketCount = 10;
     var buckets = new Array(bucketCount);
-    for (k = 0; k < bucketCount; k++) {
+    for (var k = 0; k < bucketCount; k++) {
       buckets[k] = [];
     }
 
-    for (j = 0; j < arr.length; j++) {
+    for (var j = 0; j < arr.length; j++) {
       let num = getNum(arr[j], i);
       if (num !== undefined) {
         buckets[num].push(arr[j]);
@@ -220,25 +226,35 @@ function radixSort(array) {
 
 /* -------------------------------------------------------------------------- */
 
-function selectionSort(array) {
+// good
+export function selectionSort(array) {
   // O(n^2)
+  let animations = [];
   let arr = [...array]; // copy array to not change original
 
   // O(n^2)
   let n = arr.length;
-  for (i = 0; i < n; i++) {
+  for (var i = 0; i < n; i++) {
     let smallest = i;
-    for (j = i + 1; j < n; j++) {
+    for (var j = i + 1; j < n; j++) {
+      animations.push([[j, smallest], "comparison"]);
       if (arr[j] < arr[smallest]) {
         smallest = j;
       }
     }
-    if (smallest != i) {
-      let temp = arr[i];
-      arr[i] = arr[smallest];
-      arr[smallest] = temp;
+    if (smallest !== i) {
+      swap(arr, i, smallest);
+      animations.push([[i, smallest], "swap"]);
     }
   }
 
-  return arr;
+  return animations;
+}
+
+/* -------------------------------------------------------------------------- */
+
+function swap(array, index1, index2) {
+  const temp = array[index1];
+  array[index1] = array[index2];
+  array[index2] = temp;
 }

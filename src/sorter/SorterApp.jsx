@@ -2,26 +2,36 @@ import React, { useState, useEffect } from "react";
 import AlgoPicker from "./AlgoPicker/AlgoPicker.jsx";
 import Slider from "./Slider/Slider.jsx";
 import AlgoContainer from "./AlgoContainer/AlgoContainer.jsx";
+import {
+  bubbleSort,
+  bucketSort,
+  heapSort,
+  insertionSort,
+  mergeSort,
+  quickSort,
+  radixSort,
+  selectionSort,
+} from "./sortingAlgorithms";
 import "./SorterApp.css";
 
-const SLIDER_MIN = 100;
-const SLIDER_MAX = 2000;
+const SLIDER_MIN = 10;
+const SLIDER_MAX = 500;
 const SLIDER_STEP = 10;
 const SLIDER_DEFAULT = SLIDER_MAX / 2;
 
 const MIN_BLOCK_LENGTH = 10;
 const MAX_BLOCK_LENGTH = 500;
 
-const ALGORITHMS = [
-  "Bubble",
-  "Bucket",
-  "Heap",
-  "Insertion",
-  "Merge",
-  "Quick",
-  "Radix",
-  "Selection",
-];
+const ALGORITHMS = {
+  Bubble: bubbleSort,
+  Bucket: bucketSort,
+  Heap: heapSort,
+  Insertion: insertionSort,
+  Merge: mergeSort,
+  Quick: quickSort,
+  Radix: radixSort,
+  Selection: selectionSort,
+};
 
 function SorterApp() {
   const [selected, setSelected] = useState([]);
@@ -57,7 +67,7 @@ function SorterApp() {
         <div className="SorterApp-headerbuttons">
           <div className="SorterApp-algopickercontainer">
             <AlgoPicker
-              algorithms={ALGORITHMS}
+              algorithms={Object.keys(ALGORITHMS)}
               selected={selected}
               handleAlgorithmClick={handleAlgorithmClick}
             />
@@ -75,7 +85,8 @@ function SorterApp() {
             <div className="SorterApp-actionbuttonscontainer">
               <button
                 className="SorterApp-actionbutton run"
-                onClick={() => console.log("run")}
+                disabled={true} // todo: here
+                onClick={() => console.log("run all")}
               >
                 Run All
               </button>
@@ -96,6 +107,7 @@ function SorterApp() {
           <AlgoContainer
             name={algorithm}
             array={array.slice(0, blockNumber)}
+            sortingAlgorithm={ALGORITHMS[algorithm]}
             key={index}
           />
         ))
