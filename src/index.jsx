@@ -6,7 +6,7 @@ import "./index.css";
 
 ReactDOM.render(
   <React.StrictMode>
-    <BrowserRouter basename="/algorithms">
+    <BrowserRouter basename="/algorithms-visualizer">
       <App />
     </BrowserRouter>
   </React.StrictMode>,
