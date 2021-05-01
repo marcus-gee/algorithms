@@ -28,6 +28,12 @@
   width: 120px;
 }
 
+.AlgoContainer-disabled {
+  background-color: lightgray;
+  border: 1px solid black;
+  color: gray;
+}
+
 .AlgoContainer-blocks {
   background-color: black;
   height: 550px;

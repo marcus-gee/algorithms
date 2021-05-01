@@ -17,21 +17,29 @@
   width: 65%;
 }
 
+.left {
+  float: left;
+  margin: 36px 36px 36px 0px;
+  width: 60%;
+}
+.left:after {
+  content: "";
+}
+
 .SorterApp-algopickercontainer {
   border: 1px solid black;
   border-radius: 12px;
   float: left;
-  margin: 36px 36px 36px 0px;
   padding: 10px;
   vertical-align: top;
-  width: 50%;
 }
 
-.right-wrap {
+.right {
   float: left;
-  margin-bottom: 36px;
+  margin: 36px 0px;
+  width: 30%;
 }
-.right-wrap:after {
+.right:after {
   content: "";
 }
 
@@ -39,24 +47,23 @@
   border: 1px solid black;
   border-radius: 12px;
   display: inline-block;
-  margin-top: 36px;
+  margin-top: 24px;
   padding: 10px;
   position: relative;
   vertical-align: top;
   width: 70%;
 }
 
-.SorterApp-actionbuttonscontainer {
+.SorterApp-buttonscontainer {
   border: 1px solid black;
   border-radius: 12px;
   display: inline-block;
-  margin-top: 24px;
   padding: 10px;
   position: relative;
   width: 70%;
 }
 
-.SorterApp-actionbutton {
+.SorterApp-button {
   border-radius: 4px;
   cursor: pointer;
   font-size: 15px;
@@ -72,8 +79,14 @@
   margin-right: 10%;
 }
 .reset {
-  background-color: lightgray;
+  background-color: lightblue;
   color: black;
+}
+
+.disabled {
+  background-color: lightgray;
+  border: 1px solid black;
+  color: gray;
 }
 
 .SorterApp-bodyplaceholder {

@@ -20,6 +20,7 @@ export function bubbleSort(array) {
 
 /* -------------------------------------------------------------------------- */
 
+// todo: add animations
 export function bucketSort(array) {
   // O(n^2)
   let arr = [...array]; // copy array to not change original
@@ -61,6 +62,7 @@ export function bucketSort(array) {
 
 /* -------------------------------------------------------------------------- */
 
+// todo: add animations
 export function heapSort(array) {
   // O(n log(n))
   let arr = [...array]; // copy array to not change original
@@ -122,11 +124,34 @@ export function insertionSort(array) {
 
 /* -------------------------------------------------------------------------- */
 
+// todo: add animations
 export function mergeSort(array) {
   // O(n log(n))
+  let animations = [];
   let arr = [...array]; // copy array to not change original
 
-  // todo
+  function merge(left, right) {
+    let arr = [];
+
+    while (left.length && right.length) {
+      if (left[0] < right[0]) {
+        arr.push(left.shift());
+      } else {
+        arr.push(right.shift());
+      }
+    }
+
+    return [...arr, ...left, ...right];
+  }
+
+  const mid = arr.length / 2;
+
+  if (arr.length < 2) {
+    return arr;
+  }
+
+  const left = arr.splice(0, mid); // right = arr
+  return merge(mergeSort(left), mergeSort(arr));
 }
 
 /* -------------------------------------------------------------------------- */
@@ -183,6 +208,7 @@ export function quickSort(
 
 /* -------------------------------------------------------------------------- */
 
+// todo: add animations
 export function radixSort(array) {
   // O(nk)
   let arr = [...array]; // copy array to not change original

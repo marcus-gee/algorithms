@@ -1,16 +1,21 @@
-import { React, useRef } from "react";
+import { React, useRef, useEffect } from "react";
 import "./AlgoContainer.css";
 
-const DELAY = 1;
-
 function AlgoContainer(props) {
-  const { name, array, sortingAlgorithm } = props;
+  const {
+    name,
+    array,
+    sortingAlgorithm,
+    delay,
+    sortedContainers,
+    setSortedContainers,
+    dataIndex,
+  } = props;
   let localArray = [...array];
   const blocksContainerRef = useRef(null);
 
   function animateSort(sortingAlgorithm, array) {
     const animations = sortingAlgorithm(array);
-
     animations.forEach(([barIndices, type], index) => {
       setTimeout(() => {
         if (type === "comparison") {
@@ -18,7 +23,7 @@ function AlgoContainer(props) {
         } else if (type === "swap") {
           animateSwap(barIndices);
         }
-      }, index * DELAY);
+      }, index * delay);
     });
   }
 
@@ -28,11 +33,11 @@ function AlgoContainer(props) {
     setTimeout(() => {
       const style = blocks[index].style;
       style.backgroundColor = "red";
-    }, DELAY);
+    }, delay);
     setTimeout(() => {
       const style = blocks[index].style;
       style.backgroundColor = "";
-    }, DELAY * 2);
+    }, delay * 2);
   }
 
   function animateSwap(indices) {
@@ -53,13 +58,24 @@ function AlgoContainer(props) {
         <h5>0.00ms</h5>
       </div>
       <button
-        className="AlgoContainer-runbutton"
+        className={
+          sortedContainers[dataIndex]
+            ? "AlgoContainer-runbutton AlgoContainer-disabled"
+            : "AlgoContainer-runbutton"
+        }
+        disabled={sortedContainers[dataIndex]}
         onClick={() => {
           animateSort(sortingAlgorithm, localArray);
+          setSortedContainers(
+            sortedContainers.map((val, index) =>
+              index === dataIndex ? true : val
+            )
+          );
         }}
       >
         Run
       </button>
+
       <div className="AlgoContainer-blocks" ref={blocksContainerRef}>
         {localArray.map((value, index) => (
           <div
