@@ -11,7 +11,7 @@ import {
   quickSort,
   radixSort,
   selectionSort,
-} from "./sortingAlgorithms";
+} from "./Utilities/sortingAlgorithms";
 import "./SorterApp.css";
 
 const BLOCK_NUM_MIN = 10;
@@ -29,12 +29,12 @@ const MAX_BLOCK_LENGTH = 500;
 
 const ALGORITHMS = {
   Bubble: bubbleSort,
-  Bucket: bucketSort,
-  Heap: heapSort,
+  // Bucket: bucketSort,
+  // Heap: heapSort,
   Insertion: insertionSort,
-  Merge: mergeSort,
+  // Merge: mergeSort,
   Quick: quickSort,
-  Radix: radixSort,
+  // Radix: radixSort,
   Selection: selectionSort,
 };
 

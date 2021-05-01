@@ -5,6 +5,41 @@
   width: 95%;
 }
 
+.AlgoContainer-tooltip {
+  border-bottom: 1px dotted black;
+  display: inline-block;
+  margin-bottom: 0px;
+  position: relative;
+}
+
+.AlgoContainer-tooltiptext {
+  background-color: white;
+  border-radius: 6px;
+  color: black;
+  font-size: 12px;
+  left: 110%;
+  padding: 5px;
+  position: absolute;
+  text-align: left;
+  top: -5px;
+  visibility: hidden;
+  width: 300px;
+}
+
+.AlgoContainer-tooltiptext::after {
+  border-color: transparent white transparent transparent;
+  border-style: solid;
+  border-width: 5px;
+  content: "";
+  margin-top: -5px;
+  position: absolute;
+  right: 100%;
+  top: 15px;
+}
+.AlgoContainer-tooltip:hover .AlgoContainer-tooltiptext {
+  visibility: visible;
+}
+
 .AlgoContainer-info {
   background-color: black;
   color: white;

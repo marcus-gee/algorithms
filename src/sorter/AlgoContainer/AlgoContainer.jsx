@@ -1,5 +1,6 @@
-import { React, useRef, useEffect } from "react";
+import { React, useRef } from "react";
 import "./AlgoContainer.css";
+import { algorithmDescriptions } from "../Utilities/sortingAlgorithmDescriptions";
 
 function AlgoContainer(props) {
   const {
@@ -51,10 +52,49 @@ function AlgoContainer(props) {
     jStyle.height = iHeight;
   }
 
+  // todo: tooltips could be abstracted
   return (
     <div className="AlgoContainer-container">
       <div className="AlgoContainer-info">
-        <h3>{`${name} Sort`}</h3>
+        <h3 className="AlgoContainer-tooltip">
+          {`${name} Sort`}
+          <span className="AlgoContainer-tooltiptext">
+            {"Worst Case: "}
+            <span
+              style={{
+                color: algorithmDescriptions[name]["worst"]["color"],
+                margin: 0,
+              }}
+            >
+              {algorithmDescriptions[name]["worst"]["text"]}
+            </span>
+            <br />
+            {"Best Case: "}
+            <span
+              style={{
+                color: algorithmDescriptions[name]["best"]["color"],
+                margin: 0,
+              }}
+            >
+              {algorithmDescriptions[name]["best"]["text"]}
+            </span>
+            <br />
+            {"Average: "}
+            <span
+              style={{
+                color: algorithmDescriptions[name]["average"]["color"],
+                margin: 0,
+              }}
+            >
+              {algorithmDescriptions[name]["average"]["text"]}
+            </span>
+            <br />
+            {"Description: "}
+            <span style={{ margin: 0 }}>
+              {algorithmDescriptions[name]["description"]}
+            </span>
+          </span>
+        </h3>
         <h5>0.00ms</h5>
       </div>
       <button
