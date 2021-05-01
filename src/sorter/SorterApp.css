@@ -22,9 +22,6 @@
   margin: 36px 36px 36px 0px;
   width: 60%;
 }
-.left:after {
-  content: "";
-}
 
 .SorterApp-algopickercontainer {
   border: 1px solid black;
@@ -38,9 +35,6 @@
   float: left;
   margin: 36px 0px;
   width: 30%;
-}
-.right:after {
-  content: "";
 }
 
 .SorterApp-slidercontainer {
@@ -96,4 +90,32 @@
   padding: 100px 0px;
   text-align: center;
   width: 90%;
+}
+
+/* Responsive layout */
+@media (max-width: 1220px) {
+  .right {
+    width: 60%;
+    margin: 0px 0px 36px 0px;
+  }
+  .left {
+    margin: 36px 0px 24px 0px;
+    width: 90%;
+  }
+}
+@media (max-width: 830px) {
+  .right {
+    width: 60%;
+    margin: 0px 0px 36px 0px;
+  }
+  .left {
+    margin: 0px 0px 24px 0px;
+    width: 90%;
+  }
+  .SorterApp-headerbuttons {
+    display: inline-block;
+
+    margin-left: 5%;
+    width: 90%;
+  }
 }
