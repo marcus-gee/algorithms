@@ -105,8 +105,8 @@
 }
 @media (max-width: 830px) {
   .right {
-    width: 60%;
     margin: 0px 0px 36px 0px;
+    width: 75%;
   }
   .left {
     margin: 0px 0px 24px 0px;
