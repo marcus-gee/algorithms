@@ -1,1 +1,1 @@
-# [algorithms](https://marcus-gee.github.io/algorithms/)
+# [algorithms-visualizer](https://marcus-gee.github.io/algorithms-visualizer/)
