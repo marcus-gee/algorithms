@@ -8,7 +8,7 @@ class App extends React.Component {
     return (
       <div className="App">
         <div className="App-nav">
-          <Link to="/" className="link">
+          <Link to="" className="link">
             Home
           </Link>
           <Link to="/sorter" className="link">
@@ -20,16 +20,14 @@ class App extends React.Component {
         </div>
         <Switch>
           <Route exact path="/">
-            <div>
-              <h2>Home</h2>
-            </div>
+            <h1 style={{ margin: "24px" }}>Home</h1>
           </Route>
           <Route path="/sorter">
             <SorterApp />
           </Route>
           <Route path="/pathfinder">
             <div>
-              <h2>Pathfinder</h2>
+              <h1 style={{ margin: "24px" }}>Pathfinder</h1>
             </div>
           </Route>
         </Switch>

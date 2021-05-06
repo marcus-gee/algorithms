@@ -152,7 +152,6 @@ export function insertionSort(array) {
 
 /* -------------------------------------------------------------------------- */
 
-// todo: add animations
 export function mergeSort(array, animations = [], offset = 0) {
   // O(n log(n))
   console.log("-");
