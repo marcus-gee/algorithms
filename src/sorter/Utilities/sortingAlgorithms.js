@@ -1,15 +1,13 @@
-// good
 export function bubbleSort(array) {
   // O(n^2)
   let animations = [];
-  let arr = [...array]; // copy array to not change original
 
-  let n = arr.length;
+  let n = array.length;
   for (var i = 0; i < n - 1; i++) {
     for (var j = 0; j < n - i - 1; j++) {
-      animations.push([[j, j + 1], "comparison"]);
-      if (arr[j] > arr[j + 1]) {
-        swap(arr, j, j + 1);
+      animations.push([[j, j + 1], "access"]);
+      if (array[j] > array[j + 1]) {
+        swap(array, j, j + 1);
         animations.push([[j, j + 1], "swap"]);
       }
     }
@@ -18,102 +16,132 @@ export function bubbleSort(array) {
   return animations;
 }
 
-/* -------------------------------------------------------------------------- */
+/* -------------------------------------------------------------------------- 
 
 // todo: add animations
-export function bucketSort(array) {
+export function bucketSort(array, bucketCount = 10) {
   // O(n^2)
-  let arr = [...array]; // copy array to not change original
+  let animations = [];
 
-  let min = arr[0];
-  let max = arr[0];
-  let bucketSize = 5;
-
-  arr.forEach((val) => {
-    if (val < min) {
-      min = val;
-    } else if (val > max) {
-      max = val;
-    }
-  });
+  let min = Math.min(...array);
+  let max = Math.max(...array);
 
   // init buckets
-  let bucketCount = Math.floor((max - min) / bucketSize) + 1;
-  var buckets = new Array(bucketCount);
-
+  const bucketSize = Math.ceil((max - min) / bucketCount);
+  let buckets = new Array(bucketCount);
   for (var i = 0; i < bucketCount; i++) {
     buckets[i] = [];
   }
 
+  // bucketPointers[i] points to end index of bucket[i] (i.e. where to insert new value into bucket)
+  let bucketPointers = new Array(bucketCount).fill(0);
+  let bucketArray = [...array];
+
   // add values to buckets
-  arr.forEach((val) => {
-    buckets[Math.floor((val - min) / bucketSize)].push(val);
+  array.forEach((val, index) => {
+    let bucketNumber = Math.floor((val - min) / bucketSize);
+
+    // put value into bucket
+    buckets[bucketNumber].push(val);
+    swap(bucketArray, index, bucketPointers[bucketNumber]);
+
+    // ^^issue: when adding to buckets > 0, swapping with values at start of other buckets
+    // want to insert and push back all values before.
+
+    animations.push([[index, bucketPointers[bucketNumber]], "swap"]);
+    animations.push([[bucketPointers[bucketNumber]], `group ${bucketNumber}`]);
+
+    // update pointer for all buckets after (and including) bucket[bucketNumber]
+    for (var i = bucketNumber; i < bucketCount; i++) {
+      bucketPointers[i]++;
+    }
   });
 
   // sort buckets w/ insertionSort
   let sortedArray = [];
-  buckets.forEach((bucket) => {
-    let sortedBucket = insertionSort(bucket);
-    sortedArray = sortedArray.concat(sortedBucket);
+  buckets.forEach((bucket, index) => {
+    // indices in animation from insertion sort dont match og array indices
+    let bucketAnimations = insertionSort(bucket);
+
+    // for all indices in animations, update by adding offset (which is length of prior buckets)
+    let indexOffset = index > 0 ? bucketPointers[index - 1] : 0;
+    bucketAnimations = bucketAnimations.map(([barIndices, type]) => {
+      return [barIndices.map((i) => i + indexOffset), type];
+    });
+    animations = [...animations, ...bucketAnimations];
+    sortedArray = [...sortedArray, ...bucket];
   });
 
-  return sortedArray;
+  array = sortedArray;
+  return animations;
 }
 
 /* -------------------------------------------------------------------------- */
 
-// todo: add animations
+// todo: color levels of heap
 export function heapSort(array) {
   // O(n log(n))
-  let arr = [...array]; // copy array to not change original
+  let animations = [];
 
-  const heapify = (arr, size, i) => {
+  const findLevel = (index) => {
+    let level = 0;
+    while (index > 0) {
+      index = Math.floor((index - 1) / 2);
+      level++;
+    }
+    return level;
+  };
+  const heapify = (array, size, i, animations) => {
     let max = i;
     let left = 2 * i + 1; // left child idx
     let right = 2 * i + 2; // right child idx
 
     // left child is not last and value is bigger than root
-    if (left < size && arr[left] > arr[max]) {
+    if (left < size && array[left] > array[max]) {
       max = left;
     }
     // left child is not last and value is bigger than root
-    if (right < size && arr[right] > arr[max]) {
+    if (right < size && array[right] > array[max]) {
       max = right;
     }
     if (max !== i) {
-      swap(arr, i, max);
-      heapify(arr, size, max);
+      animations.push([[i, max], "access"]);
+      swap(array, i, max);
+      animations.push([[i, max], "swap"]);
+
+      heapify(array, size, max, animations);
     }
   };
 
-  let n = arr.length;
+  let n = array.length;
   // create heap
   for (var i = Math.floor(n / 2 - 1); i >= 0; i--) {
-    heapify(arr, n, i);
+    animations.push([[i], "access"]);
+    heapify(array, n, i, animations);
   }
 
   for (i = n - 1; i >= 0; i--) {
-    swap(arr, 0, i);
-    heapify(arr, i, 0);
+    animations.push([[0, i], "access"]);
+    swap(array, 0, i);
+    animations.push([[0, i], "swap"]);
+    heapify(array, i, 0, animations);
   }
 
-  return arr;
+  return animations;
 }
 
 /* -------------------------------------------------------------------------- */
 
-// good
 export function insertionSort(array) {
   // O(n^2)
   let animations = [];
-  let arr = [...array]; // copy array to not change original
 
-  let n = arr.length;
+  let n = array.length;
   for (var i = 1; i < n; i++) {
     for (var j = i - 1; j > -1; j--) {
-      animations.push([[j, j + 1], "comparison"]);
-      if (arr[j] > arr[j + 1]) {
-        swap(arr, j, j + 1);
+      animations.push([[j, j + 1], "access"]);
+      if (array[j] > array[j + 1]) {
+        swap(array, j, j + 1);
         animations.push([[j, j + 1], "swap"]);
       } else break;
     }
@@ -125,38 +153,66 @@ export function insertionSort(array) {
 /* -------------------------------------------------------------------------- */
 
 // todo: add animations
-export function mergeSort(array) {
+export function mergeSort(array, animations = [], offset = 0) {
   // O(n log(n))
-  let animations = [];
-  let arr = [...array]; // copy array to not change original
+  console.log("-");
+  console.log(array);
+  let n = array.length;
+  if (n < 2) {
+    return animations;
+  }
 
-  function merge(left, right) {
-    let arr = [];
+  const mid = Math.floor(n / 2);
+  const left = array.slice(0, mid);
+  const right = array.slice(mid);
 
-    while (left.length && right.length) {
-      if (left[0] < right[0]) {
-        arr.push(left.shift());
-      } else {
-        arr.push(right.shift());
-      }
+  let lAnimations = mergeSort(left, animations, offset);
+  let rAnimations = mergeSort(right, animations, offset + mid);
+  animations = [...lAnimations, ...rAnimations];
+
+  let i = 0;
+  let j = 0;
+  let k = 0;
+
+  let p = left.length;
+  let q = right.length;
+
+  while (i < p && j < q) {
+    animations.push([[i + offset, j + offset + mid], "access"]);
+
+    if (left[i] < right[j]) {
+      animations.push([[k + offset, left[i]], "insert"]);
+      array[k] = left[i];
+      i += 1;
+    } else {
+      animations.push([[k + offset, right[j]], "insert"]);
+      array[k] = right[j];
+      j += 1;
     }
-
-    return [...arr, ...left, ...right];
+    k += 1;
   }
 
-  const mid = arr.length / 2;
-
-  if (arr.length < 2) {
-    return arr;
+  while (i < p) {
+    array[k] = left[i];
+    animations.push([[i + offset], "access"]);
+    animations.push([[k + offset, left[i]], "insert"]);
+    i += 1;
+    k += 1;
   }
-
-  const left = arr.splice(0, mid); // right = arr
-  return merge(mergeSort(left), mergeSort(arr));
+  while (j < q) {
+    array[k] = right[j];
+    animations.push([[j + offset + mid], "access"]);
+    animations.push([[k + offset, right[j]], "insert"]);
+    j += 1;
+    k += 1;
+  }
+  console.log(animations);
+  console.log(array);
+  return animations;
 }
 
 /* -------------------------------------------------------------------------- */
 
-// good
 export function quickSort(
   array,
   start = 0,
@@ -164,24 +220,23 @@ export function quickSort(
   animations = []
 ) {
   // O(n^2)
-  let arr = [...array]; // copy array to not change original
 
   // recursive implementation
-  const partition = (arr, start, end, animations) => {
+  const partition = (array, start, end, animations) => {
     const pivotIdx = Math.floor((start + end) / 2);
-    const pivotVal = arr[pivotIdx];
+    const pivotVal = array[pivotIdx];
     while (start <= end) {
-      while (arr[start] < pivotVal) {
-        animations.push([[start, pivotIdx], "comparison"]);
+      while (array[start] < pivotVal) {
+        animations.push([[start, pivotIdx], "access"]);
         start++;
       }
-      while (arr[end] > pivotVal) {
-        animations.push([[end, pivotIdx], "comparison"]);
+      while (array[end] > pivotVal) {
+        animations.push([[end, pivotIdx], "access"]);
         end--;
       }
-      animations.push([[start, end], "comparison"]);
+      animations.push([[start, end], "access"]);
       if (start <= end) {
-        swap(arr, start, end);
+        swap(array, start, end);
         animations.push([[start, end], "swap"]);
 
         start++;
@@ -194,24 +249,24 @@ export function quickSort(
   if (start >= end) {
     return;
   }
-  let index = partition(arr, start, end, animations);
+  let index = partition(array, start, end, animations);
 
   if (start < index - 1) {
-    quickSort(arr, start, index - 1, animations);
+    quickSort(array, start, index - 1, animations);
   }
   if (index < end) {
-    quickSort(arr, index, end, animations);
+    quickSort(array, index, end, animations);
   }
 
   return animations;
 }
 
-/* -------------------------------------------------------------------------- */
+/* -------------------------------------------------------------------------- 
 
 // todo: add animations
 export function radixSort(array) {
   // O(nk)
-  let arr = [...array]; // copy array to not change original
+  let animations = [];
 
   const getNum = (val, idx) => {
     const strNum = val.toString();
@@ -219,9 +274,9 @@ export function radixSort(array) {
     const num = strNum[end - idx];
     return num === undefined ? 0 : num;
   };
-  const longestNum = (arr) => {
+  const longestNum = (array) => {
     let longest = "0";
-    arr.forEach((num) => {
+    array.forEach((num) => {
       const strNum = num.toString();
       if (strNum.length > longest.length) {
         longest = strNum;
@@ -230,7 +285,7 @@ export function radixSort(array) {
     return longest.length;
   };
 
-  let maxLength = longestNum(arr);
+  let maxLength = longestNum(array);
   for (var i = 0; i < maxLength; i++) {
     const bucketCount = 10;
     var buckets = new Array(bucketCount);
@@ -238,38 +293,36 @@ export function radixSort(array) {
       buckets[k] = [];
     }
 
-    for (var j = 0; j < arr.length; j++) {
-      let num = getNum(arr[j], i);
+    for (var j = 0; j < array.length; j++) {
+      let num = getNum(array[j], i);
       if (num !== undefined) {
-        buckets[num].push(arr[j]);
+        buckets[num].push(array[j]);
       }
     }
-    arr = buckets.flat();
+    array = buckets.flat();
   }
 
-  return arr;
+  return animations;
 }
 
 /* -------------------------------------------------------------------------- */
 
-// good
 export function selectionSort(array) {
   // O(n^2)
   let animations = [];
-  let arr = [...array]; // copy array to not change original
 
   // O(n^2)
-  let n = arr.length;
+  let n = array.length;
   for (var i = 0; i < n; i++) {
     let smallest = i;
     for (var j = i + 1; j < n; j++) {
-      animations.push([[j, smallest], "comparison"]);
-      if (arr[j] < arr[smallest]) {
+      animations.push([[j, smallest], "access"]);
+      if (array[j] < array[smallest]) {
         smallest = j;
       }
     }
     if (smallest !== i) {
-      swap(arr, i, smallest);
+      swap(array, i, smallest);
       animations.push([[i, smallest], "swap"]);
     }
   }

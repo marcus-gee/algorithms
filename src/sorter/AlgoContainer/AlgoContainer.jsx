@@ -17,18 +17,21 @@ function AlgoContainer(props) {
 
   function animateSort(sortingAlgorithm, array) {
     const animations = sortingAlgorithm(array);
-    animations.forEach(([barIndices, type], index) => {
+    animations.forEach(([barData, type], index) => {
       setTimeout(() => {
-        if (type === "comparison") {
-          barIndices.map((i) => animateComparison(i));
+        if (type === "access") {
+          barData.map((i) => animateAccess(i));
         } else if (type === "swap") {
-          animateSwap(barIndices);
+          animateSwap(barData);
+        } else if (type === "insert") {
+          const [index, height] = barData;
+          animateInsert(index, height);
         }
       }, index * delay);
     });
   }
 
-  function animateComparison(index) {
+  function animateAccess(index) {
     const blocks = blocksContainerRef.current.children;
 
     setTimeout(() => {
@@ -50,6 +53,13 @@ function AlgoContainer(props) {
     iStyle.height = jHeight;
     const jStyle = blocks[j].style;
     jStyle.height = iHeight;
+  }
+
+  function animateInsert(index, height) {
+    const blocks = blocksContainerRef.current.children;
+
+    const style = blocks[index].style;
+    style.height = `${height}px`;
   }
 
   return (

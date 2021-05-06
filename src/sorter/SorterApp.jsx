@@ -4,12 +4,10 @@ import Slider from "./Slider/Slider.jsx";
 import AlgoContainer from "./AlgoContainer/AlgoContainer.jsx";
 import {
   bubbleSort,
-  bucketSort,
   heapSort,
   insertionSort,
   mergeSort,
   quickSort,
-  radixSort,
   selectionSort,
 } from "./Utilities/sortingAlgorithms";
 import "./SorterApp.css";
@@ -29,12 +27,10 @@ const MAX_BLOCK_LENGTH = 500;
 
 const ALGORITHMS = {
   Bubble: bubbleSort,
-  // Bucket: bucketSort,
-  // Heap: heapSort,
+  Heap: heapSort,
   Insertion: insertionSort,
-  // Merge: mergeSort,
+  Merge: mergeSort,
   Quick: quickSort,
-  // Radix: radixSort,
   Selection: selectionSort,
 };
 
