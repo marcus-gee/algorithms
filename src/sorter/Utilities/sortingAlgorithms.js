@@ -16,7 +16,7 @@ export function bubbleSort(array) {
   return animations;
 }
 
-/* -------------------------------------------------------------------------- 
+/* -------------------------------------------------------------------------- */
 
 // todo: add animations
 export function bucketSort(array, bucketCount = 10) {
@@ -35,44 +35,41 @@ export function bucketSort(array, bucketCount = 10) {
 
   // bucketPointers[i] points to end index of bucket[i] (i.e. where to insert new value into bucket)
   let bucketPointers = new Array(bucketCount).fill(0);
-  let bucketArray = [...array];
 
   // add values to buckets
-  array.forEach((val, index) => {
+  array.forEach((val) => {
     let bucketNumber = Math.floor((val - min) / bucketSize);
-
     // put value into bucket
     buckets[bucketNumber].push(val);
-    swap(bucketArray, index, bucketPointers[bucketNumber]);
-
-    // ^^issue: when adding to buckets > 0, swapping with values at start of other buckets
-    // want to insert and push back all values before.
-
-    animations.push([[index, bucketPointers[bucketNumber]], "swap"]);
-    animations.push([[bucketPointers[bucketNumber]], `group ${bucketNumber}`]);
-
     // update pointer for all buckets after (and including) bucket[bucketNumber]
-    for (var i = bucketNumber; i < bucketCount; i++) {
-      bucketPointers[i]++;
+    for (var j = bucketNumber; j < bucketCount; j++) {
+      bucketPointers[j]++;
+    }
+  });
+
+  // create bucket animation
+  buckets.forEach((bucket, index) => {
+    let indexOffset = index > 0 ? bucketPointers[index - 1] : 0;
+    for (var k = 0; k < bucket.length; k++) {
+      animations.push([[k + indexOffset], "access"]);
+      animations.push([[k + indexOffset, bucket[k]], "insert"]);
     }
   });
 
   // sort buckets w/ insertionSort
-  let sortedArray = [];
+  array = [];
   buckets.forEach((bucket, index) => {
+    let indexOffset = index > 0 ? bucketPointers[index - 1] : 0;
     // indices in animation from insertion sort dont match og array indices
     let bucketAnimations = insertionSort(bucket);
-
     // for all indices in animations, update by adding offset (which is length of prior buckets)
-    let indexOffset = index > 0 ? bucketPointers[index - 1] : 0;
     bucketAnimations = bucketAnimations.map(([barIndices, type]) => {
       return [barIndices.map((i) => i + indexOffset), type];
     });
     animations = [...animations, ...bucketAnimations];
-    sortedArray = [...sortedArray, ...bucket];
+    array = [...array, ...bucket];
   });
 
-  array = sortedArray;
   return animations;
 }
 

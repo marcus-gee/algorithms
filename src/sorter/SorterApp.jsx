@@ -4,6 +4,7 @@ import Slider from "./Slider/Slider.jsx";
 import AlgoContainer from "./AlgoContainer/AlgoContainer.jsx";
 import {
   bubbleSort,
+  bucketSort,
   heapSort,
   insertionSort,
   mergeSort,
@@ -28,6 +29,7 @@ const MAX_BLOCK_LENGTH = 500;
 
 const ALGORITHMS = {
   Bubble: bubbleSort,
+  Bucket: bucketSort,
   Heap: heapSort,
   Insertion: insertionSort,
   Merge: mergeSort,
