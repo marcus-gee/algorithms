@@ -117,19 +117,6 @@ function SorterApp() {
             <div className="SorterApp-buttonscontainer">
               <button
                 className={
-                  sortedContainers.includes(true)
-                    ? "SorterApp-button run disabled"
-                    : "SorterApp-button run"
-                }
-                disabled={sortedContainers.includes(true)} // todo: here
-                onClick={() => {
-                  alert("doesn't work (yet)... run individually");
-                }}
-              >
-                Run All
-              </button>
-              <button
-                className={
                   !sortedContainers.includes(true)
                     ? "SorterApp-button reset disabled"
                     : "SorterApp-button reset"

@@ -24,8 +24,6 @@
 }
 
 .SorterApp-algopickercontainer {
-  border: 1px solid black;
-  border-radius: 12px;
   float: left;
   padding: 10px;
   vertical-align: top;
@@ -38,8 +36,6 @@
 }
 
 .SorterApp-slidercontainer {
-  border: 1px solid black;
-  border-radius: 12px;
   display: inline-block;
   margin-top: 24px;
   padding: 10px;
@@ -49,12 +45,11 @@
 }
 
 .SorterApp-buttonscontainer {
-  border: 1px solid black;
-  border-radius: 12px;
   display: inline-block;
+  margin-top: 55px;
   padding: 10px;
   position: relative;
-  width: 70%;
+  width: 50%;
 }
 
 .SorterApp-button {
@@ -64,7 +59,7 @@
   height: 50px;
   text-align: center;
   transition-duration: 0.4s;
-  width: 45%;
+  width: 100%;
 }
 
 .run {
