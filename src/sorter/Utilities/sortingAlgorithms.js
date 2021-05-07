@@ -260,9 +260,8 @@ export function quickSort(
   return animations;
 }
 
-/* -------------------------------------------------------------------------- 
+/* -------------------------------------------------------------------------- */
 
-// todo: add animations
 export function radixSort(array) {
   // O(nk)
   let animations = [];
@@ -299,8 +298,12 @@ export function radixSort(array) {
       }
     }
     array = buckets.flat();
+    // batch update
+    for (var j = 0; j < array.length; j++) {
+      animations.push([[j], "access"]);
+      animations.push([[j, array[j]], "insert"]);
+    }
   }
-
   return animations;
 }
 

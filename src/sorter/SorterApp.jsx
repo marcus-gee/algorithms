@@ -8,6 +8,7 @@ import {
   insertionSort,
   mergeSort,
   quickSort,
+  radixSort,
   selectionSort,
 } from "./Utilities/sortingAlgorithms";
 import "./SorterApp.css";
@@ -31,6 +32,7 @@ const ALGORITHMS = {
   Insertion: insertionSort,
   Merge: mergeSort,
   Quick: quickSort,
+  Radix: radixSort,
   Selection: selectionSort,
 };
 
