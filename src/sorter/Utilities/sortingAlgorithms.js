@@ -5,20 +5,18 @@ export function bubbleSort(array) {
   let n = array.length;
   for (var i = 0; i < n - 1; i++) {
     for (var j = 0; j < n - i - 1; j++) {
-      animations.push([[j, j + 1], "access"]);
+      animations.push({ type: "access", indices: [j, j + 1] });
       if (array[j] > array[j + 1]) {
         swap(array, j, j + 1);
-        animations.push([[j, j + 1], "swap"]);
+        animations.push({ type: "swap", indices: [j, j + 1] });
       }
     }
   }
 
   return animations;
 }
-
 /* -------------------------------------------------------------------------- */
 
-// todo: add animations
 export function bucketSort(array, bucketCount = 10) {
   // O(n^2)
   let animations = [];
@@ -51,8 +49,12 @@ export function bucketSort(array, bucketCount = 10) {
   buckets.forEach((bucket, index) => {
     let indexOffset = index > 0 ? bucketPointers[index - 1] : 0;
     for (var k = 0; k < bucket.length; k++) {
-      animations.push([[k + indexOffset], "access"]);
-      animations.push([[k + indexOffset, bucket[k]], "insert"]);
+      animations.push({ type: "access", indices: [k + indexOffset] });
+      animations.push({
+        type: "insert",
+        indices: [k + indexOffset],
+        height: bucket[k],
+      });
     }
   });
 
@@ -63,8 +65,11 @@ export function bucketSort(array, bucketCount = 10) {
     // indices in animation from insertion sort dont match og array indices
     let bucketAnimations = insertionSort(bucket);
     // for all indices in animations, update by adding offset (which is length of prior buckets)
-    bucketAnimations = bucketAnimations.map(([barIndices, type]) => {
-      return [barIndices.map((i) => i + indexOffset), type];
+    bucketAnimations = bucketAnimations.map((animation) => {
+      return {
+        type: animation["type"],
+        indices: animation["indices"].map((i) => i + indexOffset),
+      };
     });
     animations = [...animations, ...bucketAnimations];
     array = [...array, ...bucket];
@@ -75,7 +80,7 @@ export function bucketSort(array, bucketCount = 10) {
 
 /* -------------------------------------------------------------------------- */
 
-// todo: color levels of heap
+// todo: color levels of heap?
 export function heapSort(array) {
   // O(n log(n))
   let animations = [];
@@ -102,9 +107,9 @@ export function heapSort(array) {
       max = right;
     }
     if (max !== i) {
-      animations.push([[i, max], "access"]);
+      animations.push({ type: "access", indices: [i, max] });
       swap(array, i, max);
-      animations.push([[i, max], "swap"]);
+      animations.push({ type: "swap", indices: [i, max] });
 
       heapify(array, size, max, animations);
     }
@@ -113,14 +118,14 @@ export function heapSort(array) {
   let n = array.length;
   // create heap
   for (var i = Math.floor(n / 2 - 1); i >= 0; i--) {
-    animations.push([[i], "access"]);
+    animations.push({ type: "access", indices: [i] });
     heapify(array, n, i, animations);
   }
 
   for (i = n - 1; i >= 0; i--) {
-    animations.push([[0, i], "access"]);
+    animations.push({ type: "access", indices: [0, i] });
     swap(array, 0, i);
-    animations.push([[0, i], "swap"]);
+    animations.push({ type: "swap", indices: [0, i] });
     heapify(array, i, 0, animations);
   }
 
@@ -136,10 +141,10 @@ export function insertionSort(array) {
   let n = array.length;
   for (var i = 1; i < n; i++) {
     for (var j = i - 1; j > -1; j--) {
-      animations.push([[j, j + 1], "access"]);
+      animations.push({ type: "access", indices: [j, j + 1] });
       if (array[j] > array[j + 1]) {
         swap(array, j, j + 1);
-        animations.push([[j, j + 1], "swap"]);
+        animations.push({ type: "swap", indices: [j, j + 1] });
       } else break;
     }
   }
@@ -151,8 +156,6 @@ export function insertionSort(array) {
 
 export function mergeSort(array, animations = [], offset = 0) {
   // O(n log(n))
-  console.log("-");
-  console.log(array);
   let n = array.length;
   if (n < 2) {
     return animations;
@@ -174,14 +177,25 @@ export function mergeSort(array, animations = [], offset = 0) {
   let q = right.length;
 
   while (i < p && j < q) {
-    animations.push([[i + offset, j + offset + mid], "access"]);
+    animations.push({
+      type: "access",
+      indices: [i + offset, j + offset + mid],
+    });
 
     if (left[i] < right[j]) {
-      animations.push([[k + offset, left[i]], "insert"]);
+      animations.push({
+        type: "insert",
+        indices: [k + offset],
+        height: left[i],
+      });
       array[k] = left[i];
       i += 1;
     } else {
-      animations.push([[k + offset, right[j]], "insert"]);
+      animations.push({
+        type: "insert",
+        indices: [k + offset],
+        height: right[j],
+      });
       array[k] = right[j];
       j += 1;
     }
@@ -190,20 +204,23 @@ export function mergeSort(array, animations = [], offset = 0) {
 
   while (i < p) {
     array[k] = left[i];
-    animations.push([[i + offset], "access"]);
-    animations.push([[k + offset, left[i]], "insert"]);
+    animations.push({ type: "access", indices: [i + offset] });
+    animations.push({ type: "insert", indices: [k + offset], height: left[i] });
     i += 1;
     k += 1;
   }
   while (j < q) {
     array[k] = right[j];
-    animations.push([[j + offset + mid], "access"]);
-    animations.push([[k + offset, right[j]], "insert"]);
+    animations.push({ type: "access", indices: [j + offset + mid] });
+    animations.push({
+      type: "insert",
+      indices: [k + offset],
+      height: right[j],
+    });
     j += 1;
     k += 1;
   }
-  console.log(animations);
-  console.log(array);
+
   return animations;
 }
 
@@ -223,17 +240,17 @@ export function quickSort(
     const pivotVal = array[pivotIdx];
     while (start <= end) {
       while (array[start] < pivotVal) {
-        animations.push([[start, pivotIdx], "access"]);
+        animations.push({ type: "access", indices: [start, pivotIdx] });
         start++;
       }
       while (array[end] > pivotVal) {
-        animations.push([[end, pivotIdx], "access"]);
+        animations.push({ type: "access", indices: [end, pivotIdx] });
         end--;
       }
-      animations.push([[start, end], "access"]);
+      animations.push({ type: "access", indices: [start, end] });
       if (start <= end) {
         swap(array, start, end);
-        animations.push([[start, end], "swap"]);
+        animations.push({ type: "swap", indices: [start, end] });
 
         start++;
         end--;
@@ -297,8 +314,8 @@ export function radixSort(array) {
     array = buckets.flat();
     // batch update
     for (var j = 0; j < array.length; j++) {
-      animations.push([[j], "access"]);
-      animations.push([[j, array[j]], "insert"]);
+      animations.push({ type: "access", indices: [j] });
+      animations.push({ type: "insert", indices: [j], height: array[j] });
     }
   }
   return animations;
@@ -315,14 +332,14 @@ export function selectionSort(array) {
   for (var i = 0; i < n; i++) {
     let smallest = i;
     for (var j = i + 1; j < n; j++) {
-      animations.push([[j, smallest], "access"]);
+      animations.push({ type: "access", indices: [j, smallest] });
       if (array[j] < array[smallest]) {
         smallest = j;
       }
     }
     if (smallest !== i) {
       swap(array, i, smallest);
-      animations.push([[i, smallest], "swap"]);
+      animations.push({ type: "swap", indices: [i, smallest] });
     }
   }
 

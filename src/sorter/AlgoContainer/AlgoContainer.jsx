@@ -1,4 +1,4 @@
-import { React, useRef } from "react";
+import { React, useRef, useState } from "react";
 import "./AlgoContainer.css";
 import { algorithmInfos } from "../Utilities/sortingAlgorithmInfos";
 
@@ -17,15 +17,14 @@ function AlgoContainer(props) {
 
   function animateSort(sortingAlgorithm, array) {
     const animations = sortingAlgorithm(array);
-    animations.forEach(([barData, type], index) => {
+    animations.forEach((animation, index) => {
       setTimeout(() => {
-        if (type === "access") {
-          barData.map((i) => animateAccess(i));
-        } else if (type === "swap") {
-          animateSwap(barData);
-        } else if (type === "insert") {
-          const [index, height] = barData;
-          animateInsert(index, height);
+        if (animation["type"] === "access") {
+          animation["indices"].map((i) => animateAccess(i));
+        } else if (animation["type"] === "swap") {
+          animateSwap(animation["indices"]);
+        } else if (animation["type"] === "insert") {
+          animateInsert(animation["indices"], animation["height"]);
         }
       }, index * delay);
     });
