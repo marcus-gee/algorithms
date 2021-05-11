@@ -43,16 +43,6 @@ function GridContainer(props) {
               {` ${algorithmInfo["worst"]["text"]}`}
             </span>
             <br />
-            Best Case:
-            <span style={algorithmInfo["best"]["style"]}>
-              {` ${algorithmInfo["best"]["text"]}`}
-            </span>
-            <br />
-            Average:
-            <span style={algorithmInfo["average"]["style"]}>
-              {` ${algorithmInfo["average"]["text"]}`}
-            </span>
-            <br />
             Description:
             <span style={{ margin: 0 }}>
               {` ${algorithmInfo["description"]}`}
