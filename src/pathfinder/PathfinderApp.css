@@ -1,0 +1,116 @@
+.PathfinderApp-header {
+  background-color: bisque;
+  border-radius: 12px;
+  margin-bottom: 40px;
+}
+
+.PathfinderApp-title {
+  font-size: 80px;
+  display: inline-block;
+  padding: 0% 5%;
+  width: 25%;
+  vertical-align: top;
+}
+
+.PathfinderApp-headerbuttons {
+  display: inline-block;
+  width: 65%;
+}
+
+.left {
+  float: left;
+  margin: 36px 36px 36px 0px;
+  width: 60%;
+}
+
+.PathfinderApp-algopickercontainer {
+  float: left;
+  padding: 10px;
+  vertical-align: top;
+}
+
+.right {
+  float: left;
+  margin: 36px 0px;
+  width: 30%;
+}
+
+.PathfinderApp-slidercontainer {
+  display: inline-block;
+  margin-top: 24px;
+  padding: 10px;
+  position: relative;
+  vertical-align: top;
+  width: 70%;
+}
+
+.PathfinderApp-buttonscontainer {
+  display: inline-block;
+  margin-top: 55px;
+  padding: 10px;
+  position: relative;
+  width: 50%;
+}
+
+.PathfinderApp-button {
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 15px;
+  height: 50px;
+  text-align: center;
+  transition-duration: 0.4s;
+  width: 100%;
+}
+
+.run {
+  background-color: #29c240;
+  color: white;
+  margin-right: 10%;
+}
+.reset {
+  background-color: lightblue;
+  color: black;
+}
+
+.disabled {
+  background-color: lightgray;
+  border: 1px solid black;
+  color: gray;
+}
+
+.PathfinderApp-bodyplaceholder {
+  border: 3px dotted lightgray;
+  border-radius: 12px;
+  margin: 0px auto 20px;
+  padding: 100px 0px;
+  text-align: center;
+  width: 90%;
+}
+
+/* Responsive layout */
+@media (max-width: 1220px) {
+  .right {
+    width: 60%;
+    margin: 0px 0px 36px 0px;
+  }
+  .left {
+    margin: 36px 0px 24px 0px;
+    width: 90%;
+  }
+}
+@media (max-width: 830px) {
+  .right {
+    margin: 0px 0px 36px 0px;
+    width: 75%;
+  }
+  .left {
+    margin: 0px 0px 24px 0px;
+    width: 90%;
+  }
+  .PathfinderApp-headerbuttons {
+    display: inline-block;
+
+    margin-left: 5%;
+    width: 90%;
+  }
+}

@@ -17,7 +17,7 @@ function AlgoPicker(props) {
           key={index}
           onClick={() => handleAlgorithmClick(algorithm)}
         >
-          {`${algorithm} Sort`}
+          {algorithm}
         </button>
       ))}
     </>

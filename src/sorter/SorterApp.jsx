@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import AlgoPicker from "./AlgoPicker/AlgoPicker.jsx";
-import Slider from "./Slider/Slider.jsx";
-import AlgoContainer from "./AlgoContainer/AlgoContainer.jsx";
+import AlgoPicker from "../components/AlgoPicker/AlgoPicker.jsx";
+import Slider from "../components/Slider/Slider.jsx";
+import BlocksContainer from "../components/BlocksContainer/BlocksContainer.jsx";
 import {
   bubbleSort,
   bucketSort,
@@ -12,6 +12,7 @@ import {
   radixSort,
   selectionSort,
 } from "./Utilities/sortingAlgorithms";
+import { algorithmInfos } from "./Utilities/sortingAlgorithmInfos";
 import "./SorterApp.css";
 
 const BLOCK_NUM_MIN = 10;
@@ -28,14 +29,14 @@ const MIN_BLOCK_LENGTH = 10;
 const MAX_BLOCK_LENGTH = 500;
 
 const ALGORITHMS = {
-  Bubble: bubbleSort,
-  Bucket: bucketSort,
-  Heap: heapSort,
-  Insertion: insertionSort,
-  Merge: mergeSort,
-  Quick: quickSort,
-  Radix: radixSort,
-  Selection: selectionSort,
+  "Bubble Sort": bubbleSort,
+  "Bucket Sort": bucketSort,
+  "Heap Sort": heapSort,
+  "Insertion Sort": insertionSort,
+  "Merge Sort": mergeSort,
+  "Quick Sort": quickSort,
+  "Radix Sort": radixSort,
+  "Selection Sort": selectionSort,
 };
 
 function SorterApp() {
@@ -135,10 +136,11 @@ function SorterApp() {
       </div>
       {selected.length ? (
         selected.map((algorithm, index) => (
-          <AlgoContainer
+          <BlocksContainer
             name={algorithm}
             array={array.slice(0, blockNumber)}
-            sortingAlgorithm={ALGORITHMS[algorithm]}
+            algorithm={ALGORITHMS[algorithm]}
+            algorithmInfo={algorithmInfos[algorithm]}
             delay={100 - sortSpeed + 1}
             sortedContainers={sortedContainers}
             setSortedContainers={setSortedContainers}

@@ -1,6 +1,7 @@
 import React from "react";
 import { Route, Switch, Link } from "react-router-dom";
 import SorterApp from "./sorter/SorterApp";
+import PathfinderApp from "./pathfinder/PathfinderApp";
 import "./App.css";
 
 class App extends React.Component {
@@ -26,9 +27,7 @@ class App extends React.Component {
             <SorterApp />
           </Route>
           <Route path="/pathfinder">
-            <div>
-              <h1 style={{ margin: "24px" }}>Pathfinder</h1>
-            </div>
+            <PathfinderApp />
           </Route>
         </Switch>
       </div>

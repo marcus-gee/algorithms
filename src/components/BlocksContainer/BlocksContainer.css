@@ -1,18 +1,18 @@
-.AlgoContainer-container {
+.BlocksContainer-container {
   background-color: black;
   border-radius: 12px;
   margin: 0px auto 20px;
   width: 95%;
 }
 
-.AlgoContainer-tooltip {
+.BlocksContainer-tooltip {
   border-bottom: 1px dotted black;
   display: inline-block;
   margin-bottom: 0px;
   position: relative;
 }
 
-.AlgoContainer-tooltiptext {
+.BlocksContainer-tooltiptext {
   background-color: white;
   border-radius: 6px;
   color: black;
@@ -26,7 +26,7 @@
   width: 300px;
 }
 
-.AlgoContainer-tooltiptext::after {
+.BlocksContainer-tooltiptext::after {
   border-color: transparent white transparent transparent;
   border-style: solid;
   border-width: 5px;
@@ -36,11 +36,11 @@
   right: 100%;
   top: 15px;
 }
-.AlgoContainer-tooltip:hover .AlgoContainer-tooltiptext {
+.BlocksContainer-tooltip:hover .BlocksContainer-tooltiptext {
   visibility: visible;
 }
 
-.AlgoContainer-info {
+.BlocksContainer-info {
   background-color: black;
   color: white;
   display: inline-block;
@@ -48,7 +48,7 @@
   width: 10%;
 }
 
-.AlgoContainer-runbutton {
+.BlocksContainer-runbutton {
   background-color: #29c240;
   border-radius: 4px;
   color: white;
@@ -63,13 +63,13 @@
   width: 120px;
 }
 
-.AlgoContainer-disabled {
+.BlocksContainer-disabled {
   background-color: lightgray;
   border: 1px solid black;
   color: gray;
 }
 
-.AlgoContainer-blocks {
+.BlocksContainer-blocks {
   background-color: black;
   height: 550px;
   margin: auto;
@@ -77,7 +77,7 @@
   width: 99%;
 }
 
-.AlgoContainer-block {
+.BlocksContainer-block {
   background-color: white;
   bottom: 0px;
   display: inline-block;

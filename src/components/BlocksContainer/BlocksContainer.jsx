@@ -1,22 +1,22 @@
-import { React, useRef, useState } from "react";
-import "./AlgoContainer.css";
-import { algorithmInfos } from "../Utilities/sortingAlgorithmInfos";
+import { React, useRef } from "react";
+import "./BlocksContainer.css";
 
-function AlgoContainer(props) {
+function BlocksContainer(props) {
   const {
     name,
     array,
-    sortingAlgorithm,
+    algorithm,
+    algorithmInfo,
     delay,
     sortedContainers,
     setSortedContainers,
     dataIndex,
   } = props;
   let localArray = [...array];
-  const blocksContainerRef = useRef(null);
+  const blocksRef = useRef(null);
 
-  function animateSort(sortingAlgorithm, array) {
-    const animations = sortingAlgorithm(array);
+  function animateSort(algorithm, array) {
+    const animations = algorithm(array);
     animations.forEach((animation, index) => {
       setTimeout(() => {
         if (animation["type"] === "access") {
@@ -31,7 +31,7 @@ function AlgoContainer(props) {
   }
 
   function animateAccess(index) {
-    const blocks = blocksContainerRef.current.children;
+    const blocks = blocksRef.current.children;
 
     setTimeout(() => {
       const style = blocks[index].style;
@@ -44,7 +44,7 @@ function AlgoContainer(props) {
   }
 
   function animateSwap(indices) {
-    const blocks = blocksContainerRef.current.children;
+    const blocks = blocksRef.current.children;
     const [i, j] = indices;
     const [iHeight, jHeight] = [blocks[i].style.height, blocks[j].style.height];
 
@@ -55,36 +55,36 @@ function AlgoContainer(props) {
   }
 
   function animateInsert(index, height) {
-    const blocks = blocksContainerRef.current.children;
+    const blocks = blocksRef.current.children;
 
     const style = blocks[index].style;
     style.height = `${height}px`;
   }
 
   return (
-    <div className="AlgoContainer-container">
-      <div className="AlgoContainer-info">
-        <h3 className="AlgoContainer-tooltip">
-          {`${name} Sort`}
-          <span className="AlgoContainer-tooltiptext">
+    <div className="BlocksContainer-container">
+      <div className="BlocksContainer-info">
+        <h3 className="BlocksContainer-tooltip">
+          {name}
+          <span className="BlocksContainer-tooltiptext">
             Worst Case:
-            <span style={algorithmInfos[name]["worst"]["style"]}>
-              {` ${algorithmInfos[name]["worst"]["text"]}`}
+            <span style={algorithmInfo["worst"]["style"]}>
+              {` ${algorithmInfo["worst"]["text"]}`}
             </span>
             <br />
             Best Case:
-            <span style={algorithmInfos[name]["best"]["style"]}>
-              {` ${algorithmInfos[name]["best"]["text"]}`}
+            <span style={algorithmInfo["best"]["style"]}>
+              {` ${algorithmInfo["best"]["text"]}`}
             </span>
             <br />
             Average:
-            <span style={algorithmInfos[name]["average"]["style"]}>
-              {` ${algorithmInfos[name]["average"]["text"]}`}
+            <span style={algorithmInfo["average"]["style"]}>
+              {` ${algorithmInfo["average"]["text"]}`}
             </span>
             <br />
             Description:
             <span style={{ margin: 0 }}>
-              {` ${algorithmInfos[name]["description"]}`}
+              {` ${algorithmInfo["description"]}`}
             </span>
           </span>
         </h3>
@@ -93,12 +93,12 @@ function AlgoContainer(props) {
       <button
         className={
           sortedContainers[dataIndex]
-            ? "AlgoContainer-runbutton AlgoContainer-disabled"
-            : "AlgoContainer-runbutton"
+            ? "BlocksContainer-runbutton BlocksContainer-disabled"
+            : "BlocksContainer-runbutton"
         }
         disabled={sortedContainers[dataIndex]}
         onClick={() => {
-          animateSort(sortingAlgorithm, localArray);
+          animateSort(algorithm, localArray);
           setSortedContainers(
             sortedContainers.map((val, index) =>
               index === dataIndex ? true : val
@@ -109,10 +109,10 @@ function AlgoContainer(props) {
         Run
       </button>
 
-      <div className="AlgoContainer-blocks" ref={blocksContainerRef}>
+      <div className="BlocksContainer-blocks" ref={blocksRef}>
         {localArray.map((value, index) => (
           <div
-            className="AlgoContainer-block"
+            className="BlocksContainer-block"
             style={{
               height: `${value}px`,
               width: `${100 / localArray.length}%`,
@@ -125,4 +125,4 @@ function AlgoContainer(props) {
   );
 }
 
-export default AlgoContainer;
+export default BlocksContainer;
