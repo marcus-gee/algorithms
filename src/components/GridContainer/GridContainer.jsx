@@ -16,21 +16,25 @@ function GridContainer(props) {
     dataIndex,
   } = props;
   const gridRef = useRef(null);
+  const weights = [];
 
-  function setTargetCells(start, end) {}
-
-  function animatePath(algorithm) {
-    const animations = algorithm();
+  function animatePathfind(algorithm) {
+    const animations = algorithm(start, end, nRows, nCols, weights);
     animations.forEach((animation, index) => {
       setTimeout(() => {
+        const grid = gridRef.current;
+        const [row, col] = animation["indices"];
+        const cell = grid.children[0].children[row].children[col];
+
         if (animation["type"] === "visit") {
-          animateVisit();
+          cell.className += " visited";
+        } else if (animation["type"] === "path") {
+          cell.classList.remove("visited");
+          cell.className += " path";
         }
       }, index * delay);
     });
   }
-
-  function animateVisit() {}
 
   return (
     <div className="GridContainer-container">
@@ -59,8 +63,7 @@ function GridContainer(props) {
         }
         disabled={completedContainers[dataIndex]}
         onClick={() => {
-          alert("no functionality");
-          animatePath(algorithm);
+          animatePathfind(algorithm);
           setCompletedContainers(
             completedContainers.map((val, index) =>
               index === dataIndex ? true : val
@@ -76,9 +79,9 @@ function GridContainer(props) {
           {[...Array(nRows)].map((_, i) => (
             <tr key={i}>
               {[...Array(nCols)].map((_, j) =>
-                start[0] == i && start[1] == j ? (
+                start[0] === i && start[1] === j ? (
                   <td className={"GridContainer-start"} key={j}></td>
-                ) : end[0] == i && end[1] == j ? (
+                ) : end[0] === i && end[1] === j ? (
                   <td className={"GridContainer-end"} key={j}></td>
                 ) : (
                   <td className={"GridContainer-cell"} key={j}></td>

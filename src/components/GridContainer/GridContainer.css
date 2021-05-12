@@ -82,36 +82,30 @@
 
 .GridContainer-cell {
   border: 1px solid white;
-  color: white;
-  overflow: hidden;
-  white-space: nowrap;
-  text-align: center;
+}
+
+.visited {
+  background-color: blueviolet;
+}
+
+.path {
+  background-color: deepskyblue;
 }
 
 .GridContainer-start {
-  background-color: transparent;
   background-image: url("arrow.png");
   background-position: center;
   background-repeat: no-repeat;
   background-size: 60%;
 
   border: 1px solid white;
-  color: white;
-  overflow: hidden;
-  white-space: nowrap;
-  text-align: center;
 }
 
 .GridContainer-end {
-  background-color: transparent;
   background-image: url("target.png");
   background-position: center;
   background-repeat: no-repeat;
-  background-size: 90%;
+  background-size: 100%;
 
   border: 1px solid white;
-  color: white;
-  overflow: hidden;
-  white-space: nowrap;
-  text-align: center;
 }
