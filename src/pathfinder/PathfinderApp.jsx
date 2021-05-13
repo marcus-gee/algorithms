@@ -2,13 +2,20 @@ import React, { useState, useEffect } from "react";
 import AlgoPicker from "../components/AlgoPicker/AlgoPicker.jsx";
 import Slider from "../components/Slider/Slider.jsx";
 import GridContainer from "../components/GridContainer/GridContainer.jsx";
-import { djikstra, aStar, bfs, dfs } from "./Utilities/pathfinderAlgorithms";
+import {
+  djikstra,
+  aStarManhattanDistance,
+  aStarCrossProduct,
+  bfs,
+  dfs,
+} from "./Utilities/pathfinderAlgorithms";
 import { algorithmInfos } from "./Utilities/pathfinderAlgorithmInfos";
 import "./PathfinderApp.css";
 
 const ALGORITHMS = {
   "Djikstra's": djikstra,
-  // "A\u002A": aStar,
+  "A\u002A -  Manhattan Distance": aStarManhattanDistance,
+  "A\u002A - Cross Product": aStarCrossProduct,
   "Breadth First Search": bfs,
   "Depth First Search": dfs,
 };

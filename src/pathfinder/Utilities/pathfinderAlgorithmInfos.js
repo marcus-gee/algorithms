@@ -3,7 +3,11 @@ export const algorithmInfos = {
     worst: { text: "O(|E| + |V|log|V|)", style: { color: "black", margin: 0 } },
     description: "",
   },
-  "A\u002A": {
+  "A\u002A -  Manhattan Distance": {
+    worst: { text: "O(|E|)", style: { color: "black", margin: 0 } },
+    description: "",
+  },
+  "A\u002A - Cross Product": {
     worst: { text: "O(|E|)", style: { color: "black", margin: 0 } },
     description: "",
   },
