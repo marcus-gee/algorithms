@@ -89,17 +89,7 @@
 }
 
 /* Responsive layout */
-@media (max-width: 1220px) {
-  .right {
-    width: 60%;
-    margin: 0px 0px 36px 0px;
-  }
-  .left {
-    margin: 36px 0px 24px 0px;
-    width: 90%;
-  }
-}
-@media (max-width: 830px) {
+@media (max-width: 1350px) {
   .right {
     margin: 0px 0px 36px 0px;
     width: 75%;
@@ -112,6 +102,16 @@
     display: inline-block;
 
     margin-left: 5%;
+    width: 90%;
+  }
+}
+
+@media (max-width: 470px) {
+  .PathfinderApp-title {
+    font-size: 60px;
+  }
+  .left {
+    margin: 36px 0px 24px 0px;
     width: 90%;
   }
 }

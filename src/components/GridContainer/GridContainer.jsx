@@ -53,7 +53,6 @@ function GridContainer(props) {
             </span>
           </span>
         </h3>
-        <h5>0.00ms</h5>
       </div>
       <button
         className={

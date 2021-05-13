@@ -1,3 +1,5 @@
+// http://theory.stanford.edu/~amitp/GameProgramming/Heuristics.html
+
 export function manhattanDistance(cell, start, end) {
   const D = 1;
   // This is the Manhattan distance
