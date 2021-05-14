@@ -7,6 +7,7 @@ function GridContainer(props) {
     algorithm,
     algorithmInfo,
     delay,
+    grid,
     nRows,
     nCols,
     start,
@@ -15,6 +16,7 @@ function GridContainer(props) {
     setCompletedContainers,
     dataIndex,
   } = props;
+  let localGrid = grid.map((x) => x.slice());
   const gridRef = useRef(null);
   const weights = [];
 
@@ -22,15 +24,16 @@ function GridContainer(props) {
     const animations = algorithm(start, end, nRows, nCols, weights);
     animations.forEach((animation, index) => {
       setTimeout(() => {
-        const grid = gridRef.current;
+        const ref = gridRef.current;
         const [row, col] = animation["indices"];
-        const cell = grid.children[0].children[row].children[col];
+        const cell = ref.children[0].children[row].children[col];
 
         if (animation["type"] === "visit") {
           cell.className += " visited";
+          localGrid[row][col] = "visited";
         } else if (animation["type"] === "path") {
-          cell.classList.remove("visited");
           cell.className += " path";
+          localGrid[row][col] = "path";
         }
       }, index * delay);
     });
@@ -75,17 +78,11 @@ function GridContainer(props) {
 
       <table className={"GridContainer-grid"} ref={gridRef}>
         <tbody>
-          {[...Array(nRows)].map((_, i) => (
+          {localGrid.map((_, i) => (
             <tr key={i}>
-              {[...Array(nCols)].map((_, j) =>
-                start[0] === i && start[1] === j ? (
-                  <td className={"GridContainer-start"} key={j}></td>
-                ) : end[0] === i && end[1] === j ? (
-                  <td className={"GridContainer-end"} key={j}></td>
-                ) : (
-                  <td className={"GridContainer-cell"} key={j}></td>
-                )
-              )}
+              {localGrid[i].map((_, j) => (
+                <td className={`GridContainer-${localGrid[i][j]}`} key={j}></td>
+              ))}
             </tr>
           ))}
         </tbody>

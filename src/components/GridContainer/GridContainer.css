@@ -80,7 +80,7 @@
   width: 95%;
 }
 
-.GridContainer-cell {
+.GridContainer-unvisited {
   border: 1px solid white;
 }
 

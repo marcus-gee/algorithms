@@ -33,10 +33,13 @@ const DEFAULT_END = [22, 94];
 function PathfinderApp() {
   const [selected, setSelected] = useState([]);
   const [sortSpeed, setSortSpeed] = useState(SORT_SPEED_DEFAULT);
+  const [grid, setGrid] = useState([]);
   const [start, setStart] = useState(DEFAULT_START);
   const [end, setEnd] = useState(DEFAULT_END);
-  const [walls, setWalls] = useState(DEFAULT_START);
+  const [walls, setWalls] = useState([]);
   const [completedContainers, setCompletedContainers] = useState([]);
+
+  useEffect(resetGrid, []);
 
   function handleAlgorithmClick(value) {
     if (selected.some((item) => item === value)) {
@@ -53,6 +56,23 @@ function PathfinderApp() {
 
   function handleSpeedChange(event) {
     setSortSpeed(event.target.value);
+  }
+
+  function resetGrid() {
+    Promise.resolve().then(() => {
+      setGrid([]); // hacky solution to rerender blank board
+      setGrid(
+        [...Array(N_ROWS)].map((_, i) =>
+          [...Array(N_COLS)].map((_, j) =>
+            start[0] === i && start[1] === j
+              ? "start"
+              : end[0] === i && end[1] === j
+              ? "end"
+              : "unvisited"
+          )
+        )
+      );
+    });
   }
 
   return (
@@ -93,6 +113,7 @@ function PathfinderApp() {
                 onClick={() => {
                   // clear classnames (+ walls)
                   // window.location.reload();
+                  resetGrid();
                   setCompletedContainers(completedContainers.map(() => false));
                 }}
               >
@@ -109,6 +130,7 @@ function PathfinderApp() {
             algorithm={ALGORITHMS[algorithm]}
             algorithmInfo={algorithmInfos[algorithm]}
             delay={100 - sortSpeed + 1}
+            grid={grid}
             nRows={N_ROWS}
             nCols={N_COLS}
             start={start}
