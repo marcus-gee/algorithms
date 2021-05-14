@@ -81,7 +81,7 @@
 }
 
 .GridContainer-unvisited {
-  border: 1px solid white;
+  border: 1px solid lightgray;
 }
 
 .visited {
@@ -93,7 +93,13 @@
 }
 
 .GridContainer-wall {
-  background-color: white;
+  background: repeating-linear-gradient(
+    -45deg,
+    black,
+    black 2px,
+    lightgray 3px,
+    lightgray 6px
+  );
 }
 
 .GridContainer-start {
