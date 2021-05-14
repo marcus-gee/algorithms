@@ -36,7 +36,7 @@ function PathfinderApp() {
   const [grid, setGrid] = useState([]);
   const [start, setStart] = useState(DEFAULT_START);
   const [end, setEnd] = useState(DEFAULT_END);
-  const [walls, setWalls] = useState([]);
+  const [walls, setWalls] = useState({});
   const [completedContainers, setCompletedContainers] = useState([]);
 
   useEffect(resetGrid, []);
@@ -58,9 +58,31 @@ function PathfinderApp() {
     setSortSpeed(event.target.value);
   }
 
+  function randomWalls() {
+    const threshold = 0.25;
+
+    const newGrid = grid.map((x) => x.slice());
+    const newWalls = {};
+    for (let i = 0; i < N_ROWS; i++) {
+      for (let j = 0; j < N_COLS; j++) {
+        if (
+          Math.random() < threshold &&
+          !(i == start[0] && j == start[1]) &&
+          !(i == end[0] && j == end[1])
+        ) {
+          newWalls[`${i}.${j}`] = true;
+          newGrid[i][j] = "wall";
+        }
+      }
+    }
+
+    setWalls(newWalls);
+    setGrid(newGrid);
+  }
+
   function resetGrid() {
     Promise.resolve().then(() => {
-      setGrid([]); // hacky solution to rerender blank board
+      setGrid([[]]); // hacky solution to rerender blank board
       setGrid(
         [...Array(N_ROWS)].map((_, i) =>
           [...Array(N_COLS)].map((_, j) =>
@@ -73,6 +95,8 @@ function PathfinderApp() {
         )
       );
     });
+
+    setWalls({});
   }
 
   return (
@@ -105,6 +129,22 @@ function PathfinderApp() {
             <div className="PathfinderApp-buttonscontainer">
               <button
                 className={
+                  completedContainers.includes(true)
+                    ? "PathfinderApp-button maze disabled"
+                    : "PathfinderApp-button maze"
+                }
+                disabled={completedContainers.includes(true)}
+                onClick={() => {
+                  Object.keys(walls).length > 0 ? resetGrid() : randomWalls();
+                }}
+              >
+                {Object.keys(walls).length > 0
+                  ? "Clear All Walls"
+                  : "Random Walls"}
+              </button>
+
+              <button
+                className={
                   !completedContainers.includes(true)
                     ? "PathfinderApp-button reset disabled"
                     : "PathfinderApp-button reset"
@@ -112,7 +152,6 @@ function PathfinderApp() {
                 disabled={!completedContainers.includes(true)}
                 onClick={() => {
                   // clear classnames (+ walls)
-                  // window.location.reload();
                   resetGrid();
                   setCompletedContainers(completedContainers.map(() => false));
                 }}
@@ -131,10 +170,9 @@ function PathfinderApp() {
             algorithmInfo={algorithmInfos[algorithm]}
             delay={100 - sortSpeed + 1}
             grid={grid}
-            nRows={N_ROWS}
-            nCols={N_COLS}
             start={start}
             end={end}
+            walls={walls}
             completedContainers={completedContainers}
             setCompletedContainers={setCompletedContainers}
             dataIndex={index}

@@ -92,6 +92,10 @@
   background-color: deepskyblue;
 }
 
+.GridContainer-wall {
+  background-color: white;
+}
+
 .GridContainer-start {
   background-image: url("arrow.png");
   background-position: center;

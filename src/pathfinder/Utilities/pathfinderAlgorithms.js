@@ -2,8 +2,15 @@ import Stack from "./Stack";
 import Queue from "./Queue";
 import PriorityQueue from "./PriorityQueue";
 import { manhattanDistance, startEndCrossProduct } from "./heuristics";
+import {
+  cellsEqual,
+  getWeights,
+  initAdjacencyMatrix,
+  initVisited,
+  initDistances,
+} from "./helpers";
 
-export function djikstra(start, end, maxRow, maxCol, weights = {}) {
+export function djikstra(start, end, maxRow, maxCol, walls, weights) {
   let animations = [];
 
   const comparator = (a, b) => a["weight"] <= b["weight"];
@@ -39,7 +46,7 @@ export function djikstra(start, end, maxRow, maxCol, weights = {}) {
           .get(col)
           .forEach((element) => {
             const [i, j] = element;
-            if (!visited.get(i).get(j)) {
+            if (!visited.get(i).get(j) && !walls[`${i}.${j}`]) {
               const w = getWeights(element, weights);
               if (distance + w < distances.get(i).get(j)) {
                 queue.enqueue({ data: element, weight: distance + w });
@@ -60,7 +67,7 @@ export function djikstra(start, end, maxRow, maxCol, weights = {}) {
 
 /* -------------------------------------------------------------------------- */
 
-function aStar(start, end, maxRow, maxCol, heuristic, weights = {}) {
+function aStar(start, end, maxRow, maxCol, heuristic, walls, weights) {
   let animations = [];
 
   const comparator = (a, b) => a["weight"] <= b["weight"];
@@ -96,7 +103,7 @@ function aStar(start, end, maxRow, maxCol, heuristic, weights = {}) {
           .get(col)
           .forEach((element) => {
             const [i, j] = element;
-            if (!visited.get(i).get(j)) {
+            if (!visited.get(i).get(j) && !walls[`${i}.${j}`]) {
               const g = heuristic(element, start, end);
               if (distance + g < distances.get(i).get(j)) {
                 queue.enqueue({ data: element, weight: distance + g });
@@ -120,25 +127,27 @@ export function aStarManhattanDistance(
   end,
   maxRow,
   maxCol,
-  weights = {}
+  walls,
+  weights
 ) {
-  return aStar(start, end, maxRow, maxCol, manhattanDistance, (weights = {}));
+  return aStar(start, end, maxRow, maxCol, manhattanDistance, walls, weights);
 }
 
-export function aStarCrossProduct(start, end, maxRow, maxCol, weights = {}) {
+export function aStarCrossProduct(start, end, maxRow, maxCol, walls, weights) {
   return aStar(
     start,
     end,
     maxRow,
     maxCol,
     startEndCrossProduct,
-    (weights = {})
+    walls,
+    weights
   );
 }
 
 /* -------------------------------------------------------------------------- */
 
-export function bfs(start, end, maxRow, maxCol, weights = {}) {
+export function bfs(start, end, maxRow, maxCol, walls, weights = {}) {
   let animations = [];
   let path = new Queue();
   let queue = new Queue();
@@ -168,7 +177,8 @@ export function bfs(start, end, maxRow, maxCol, weights = {}) {
           .get(row)
           .get(col)
           .forEach((element) => {
-            if (!visited.get(element[0]).get(element[1])) {
+            const [i, j] = element;
+            if (!visited.get(i).get(j) && !walls[`${i}.${j}`]) {
               queue.enqueue(element);
               path.enqueue([...finalPath, element]);
             }
@@ -182,7 +192,7 @@ export function bfs(start, end, maxRow, maxCol, weights = {}) {
 
 /* -------------------------------------------------------------------------- */
 
-export function dfs(start, end, maxRow, maxCol, weights = {}) {
+export function dfs(start, end, maxRow, maxCol, walls, weights = {}) {
   let animations = [];
   let path = new Stack();
   let stack = new Stack();
@@ -212,7 +222,8 @@ export function dfs(start, end, maxRow, maxCol, weights = {}) {
           .get(row)
           .get(col)
           .forEach((element) => {
-            if (!visited.get(element[0]).get(element[1])) {
+            const [i, j] = element;
+            if (!visited.get(i).get(j) && !walls[`${i}.${j}`]) {
               stack.push(element);
               path.push([...finalPath, element]);
             }
@@ -225,65 +236,3 @@ export function dfs(start, end, maxRow, maxCol, weights = {}) {
 }
 
 /* -------------------------------------------------------------------------- */
-
-function cellsEqual(cell1, cell2) {
-  return cell1[0] === cell2[0] && cell1[1] === cell2[1];
-}
-
-function getWeights(cell, weights) {
-  return weights[cell] ? weights[cell] : 1;
-}
-
-function getNeighbors(row, col, maxRow, maxCol) {
-  let neighbors = [];
-  // top
-  if (row > 0) neighbors.push([row - 1, col]);
-  // right
-  if (col < maxCol - 1) neighbors.push([row, col + 1]);
-  // bottom
-  if (row < maxRow - 1) neighbors.push([row + 1, col]);
-  // left
-  if (col > 0) neighbors.push([row, col - 1]);
-
-  return neighbors;
-}
-
-function initAdjacencyMatrix(rowLength, colLength) {
-  let adjacencyMatrix = new Map();
-  for (let i = 0; i < rowLength; i++) {
-    adjacencyMatrix.set(i, new Map());
-
-    for (let j = 0; j < colLength; j++) {
-      let neighbors = getNeighbors(i, j, rowLength, colLength);
-
-      adjacencyMatrix.get(i).set(j, neighbors);
-    }
-  }
-
-  return adjacencyMatrix;
-}
-
-function initVisited(rowLength, colLength) {
-  let visited = new Map();
-  for (let i = 0; i < rowLength; i++) {
-    visited.set(i, new Map());
-
-    for (let j = 0; j < colLength; j++) {
-      visited.get(i).set(j, false);
-    }
-  }
-
-  return visited;
-}
-
-function initDistances(start, rowLength, colLength) {
-  let distances = new Map();
-  for (let i = 0; i < rowLength; i++) {
-    distances.set(i, new Map());
-    for (let j = 0; j < colLength; j++) {
-      distances.get(i).set(j, cellsEqual(start, [i, j]) ? 0 : Infinity);
-    }
-  }
-
-  return distances;
-}

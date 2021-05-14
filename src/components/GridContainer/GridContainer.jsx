@@ -8,20 +8,22 @@ function GridContainer(props) {
     algorithmInfo,
     delay,
     grid,
-    nRows,
-    nCols,
     start,
     end,
+    walls,
     completedContainers,
     setCompletedContainers,
     dataIndex,
   } = props;
   let localGrid = grid.map((x) => x.slice());
+  const nRows = grid.length;
+  const nCols = grid[0].length;
+
   const gridRef = useRef(null);
-  const weights = [];
+  const weights = {};
 
   function animatePathfind(algorithm) {
-    const animations = algorithm(start, end, nRows, nCols, weights);
+    const animations = algorithm(start, end, nRows, nCols, walls, weights);
     animations.forEach((animation, index) => {
       setTimeout(() => {
         const ref = gridRef.current;

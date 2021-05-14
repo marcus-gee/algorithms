@@ -62,14 +62,16 @@
   width: 100%;
 }
 
-.run {
-  background-color: #29c240;
-  color: white;
-  margin-right: 10%;
+.maze {
+  background-color: lightblue;
+  border: 1px solid black;
+  color: black;
+  margin-bottom: 10%;
 }
 
 .reset {
   background-color: lightblue;
+  border: 1px solid black;
   color: black;
 }
 
