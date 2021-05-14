@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/algorithms-visualizer/static/css/main.fa4684a4.chunk.css",
+    "main.css": "/algorithms-visualizer/static/css/main.71385100.chunk.css",
     "main.js": "/algorithms-visualizer/static/js/main.b1448604.chunk.js",
     "main.js.map": "/algorithms-visualizer/static/js/main.b1448604.chunk.js.map",
     "runtime-main.js": "/algorithms-visualizer/static/js/runtime-main.ab3477a0.js",
@@ -8,14 +8,14 @@
     "static/js/2.3a7e3f6d.chunk.js": "/algorithms-visualizer/static/js/2.3a7e3f6d.chunk.js",
     "static/js/2.3a7e3f6d.chunk.js.map": "/algorithms-visualizer/static/js/2.3a7e3f6d.chunk.js.map",
     "index.html": "/algorithms-visualizer/index.html",
-    "static/css/main.fa4684a4.chunk.css.map": "/algorithms-visualizer/static/css/main.fa4684a4.chunk.css.map",
+    "static/css/main.71385100.chunk.css.map": "/algorithms-visualizer/static/css/main.71385100.chunk.css.map",
     "static/js/2.3a7e3f6d.chunk.js.LICENSE.txt": "/algorithms-visualizer/static/js/2.3a7e3f6d.chunk.js.LICENSE.txt",
     "static/media/GridContainer.css": "/algorithms-visualizer/static/media/target.0e002215.png"
   },
   "entrypoints": [
     "static/js/runtime-main.ab3477a0.js",
     "static/js/2.3a7e3f6d.chunk.js",
-    "static/css/main.fa4684a4.chunk.css",
+    "static/css/main.71385100.chunk.css",
     "static/js/main.b1448604.chunk.js"
   ]
 }
