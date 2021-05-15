@@ -82,7 +82,7 @@ function PathfinderApp() {
 
   function resetGrid() {
     Promise.resolve().then(() => {
-      setGrid([[]]); // hacky solution to rerender blank board
+      setGrid([[]]); // hacky way to rerender blank board
       setGrid(
         [...Array(N_ROWS)].map((_, i) =>
           [...Array(N_COLS)].map((_, j) =>
@@ -170,9 +170,11 @@ function PathfinderApp() {
             algorithmInfo={algorithmInfos[algorithm]}
             delay={100 - sortSpeed + 1}
             grid={grid}
+            setGrid={setGrid}
             start={start}
             end={end}
             walls={walls}
+            setWalls={setWalls}
             completedContainers={completedContainers}
             setCompletedContainers={setCompletedContainers}
             dataIndex={index}

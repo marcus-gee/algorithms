@@ -8,9 +8,11 @@ function GridContainer(props) {
     algorithmInfo,
     delay,
     grid,
+    setGrid,
     start,
     end,
     walls,
+    setWalls,
     completedContainers,
     setCompletedContainers,
     dataIndex,
@@ -83,7 +85,23 @@ function GridContainer(props) {
           {localGrid.map((_, i) => (
             <tr key={i}>
               {localGrid[i].map((_, j) => (
-                <td className={`GridContainer-${localGrid[i][j]}`} key={j}></td>
+                <td
+                  className={`GridContainer-${localGrid[i][j]}`}
+                  onClick={() => {
+                    const newGrid = grid.map((x) => x.slice());
+                    const newWalls = Object.assign(walls, {});
+                    if (grid[i][j] == "unvisited") {
+                      newGrid[i][j] = "wall";
+                      newWalls[`${i}.${j}`] = true;
+                    } else if (grid[i][j] == "wall") {
+                      newGrid[i][j] = "unvisited";
+                      delete newWalls[`${i}.${j}`];
+                    }
+                    setGrid(newGrid);
+                    setWalls(newWalls);
+                  }}
+                  key={j}
+                ></td>
               ))}
             </tr>
           ))}
