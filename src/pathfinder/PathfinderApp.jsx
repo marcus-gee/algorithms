@@ -58,20 +58,61 @@ function PathfinderApp() {
     setSortSpeed(event.target.value);
   }
 
-  function randomWalls() {
-    const threshold = 0.25;
-
+  function randomMaze() {
+    /*
     const newGrid = grid.map((x) => x.slice());
-    const newWalls = {};
+    const newWalls = mazeGenerator(start, end);
+
     for (let i = 0; i < N_ROWS; i++) {
       for (let j = 0; j < N_COLS; j++) {
-        if (
-          Math.random() < threshold &&
-          !(i == start[0] && j == start[1]) &&
-          !(i == end[0] && j == end[1])
-        ) {
-          newWalls[`${i}.${j}`] = true;
-          newGrid[i][j] = "wall";
+        if (newGrid[i][j] == "wall" || newGrid[i][j] == "unvisited") {
+          if (newWalls[`${i}.${j}`]) {
+            newGrid[i][j] = "wall";
+          } else {
+            newGrid[i][j] = "unvisited";
+          }
+        }
+      }
+    }
+    
+    setWalls(newWalls);
+    setGrid(newGrid);
+    */
+    const threshold = 0.25;
+    const newGrid = grid.map((x) => x.slice());
+    const newWalls = {};
+
+    for (let i = 0; i < N_ROWS; i++) {
+      for (let j = 0; j < N_COLS; j++) {
+        if (newGrid[i][j] == "wall" || newGrid[i][j] == "unvisited") {
+          if (Math.random() < threshold) {
+            newWalls[`${i}.${j}`] = true;
+            newGrid[i][j] = "wall";
+          } else {
+            newGrid[i][j] = "unvisited";
+          }
+        }
+      }
+    }
+
+    setWalls(newWalls);
+    setGrid(newGrid);
+  }
+
+  function randomWalls() {
+    const threshold = 0.25;
+    const newGrid = grid.map((x) => x.slice());
+    const newWalls = {};
+
+    for (let i = 0; i < N_ROWS; i++) {
+      for (let j = 0; j < N_COLS; j++) {
+        if (newGrid[i][j] == "wall" || newGrid[i][j] == "unvisited") {
+          if (Math.random() < threshold) {
+            newWalls[`${i}.${j}`] = true;
+            newGrid[i][j] = "wall";
+          } else {
+            newGrid[i][j] = "unvisited";
+          }
         }
       }
     }
@@ -135,23 +176,36 @@ function PathfinderApp() {
                 }
                 disabled={completedContainers.includes(true)}
                 onClick={() => {
-                  Object.keys(walls).length > 0 ? resetGrid() : randomWalls();
+                  randomMaze();
                 }}
               >
-                {Object.keys(walls).length > 0
-                  ? "Clear All Walls"
-                  : "Random Walls"}
+                Random Maze
               </button>
-
               <button
                 className={
-                  !completedContainers.includes(true)
+                  completedContainers.includes(true)
+                    ? "PathfinderApp-button maze disabled"
+                    : "PathfinderApp-button maze"
+                }
+                disabled={completedContainers.includes(true)}
+                onClick={() => {
+                  randomWalls();
+                }}
+              >
+                Random Walls
+              </button>
+              <button
+                className={
+                  !completedContainers.includes(true) &&
+                  Object.keys(walls).length == 0
                     ? "PathfinderApp-button reset disabled"
                     : "PathfinderApp-button reset"
                 }
-                disabled={!completedContainers.includes(true)}
+                disabled={
+                  !completedContainers.includes(true) &&
+                  Object.keys(walls).length == 0
+                }
                 onClick={() => {
-                  // clear classnames (+ walls)
                   resetGrid();
                   setCompletedContainers(completedContainers.map(() => false));
                 }}
@@ -160,8 +214,36 @@ function PathfinderApp() {
               </button>
             </div>
           </div>
+
+          <ul className="PathfinderApp-key">
+            <li className="PathfinderApp-keyitem">
+              <div className="key start"></div>
+              <span className="value">Start</span>
+            </li>
+            <li className="PathfinderApp-keyitem">
+              <div className="key end"></div>
+              <span className="value">End</span>
+            </li>
+            <li className="PathfinderApp-keyitem">
+              <div className="key"></div>
+              <span className="value">Unvisited</span>
+            </li>
+            <li className="PathfinderApp-keyitem">
+              <div className="key visited"></div>
+              <span className="value">Visited</span>
+            </li>
+            <li className="PathfinderApp-keyitem">
+              <div className="key path"></div>
+              <span className="value">Path</span>
+            </li>
+            <li className="PathfinderApp-keyitem">
+              <div className="key wall"></div>
+              <span className="value">Wall</span>
+            </li>
+          </ul>
         </div>
       </div>
+
       {selected.length ? (
         selected.map((algorithm, index) => (
           <GridContainer

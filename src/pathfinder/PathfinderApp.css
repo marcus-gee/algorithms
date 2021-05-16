@@ -81,6 +81,67 @@
   color: gray;
 }
 
+.PathfinderApp-key {
+  border-radius: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 20px 0px;
+  text-align: left;
+  width: 90%;
+}
+
+.PathfinderApp-keyitem {
+  display: inline;
+  margin: 12px;
+  position: relative;
+}
+
+.key {
+  background-color: black;
+  border: 1px solid lightgray;
+  bottom: -2px;
+  display: inline-block;
+  height: 20px;
+  position: absolute;
+  width: 20px;
+}
+
+.value {
+  margin-left: 32px;
+}
+
+.start {
+  background-image: url("Utilities/arrow.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 60%;
+}
+
+.end {
+  background-image: url("Utilities/target.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100%;
+}
+
+.visited {
+  background-color: blueviolet;
+}
+
+.path {
+  background-color: deepskyblue;
+}
+
+.wall {
+  background: repeating-linear-gradient(
+    -45deg,
+    black,
+    black 2px,
+    lightgray 3px,
+    lightgray 6px
+  );
+}
+
 .PathfinderApp-bodyplaceholder {
   border: 3px dotted lightgray;
   border-radius: 12px;

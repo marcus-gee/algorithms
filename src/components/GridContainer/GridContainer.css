@@ -108,7 +108,7 @@
   background-repeat: no-repeat;
   background-size: 60%;
 
-  border: 1px solid white;
+  border: 1px solid lightgray;
 }
 
 .GridContainer-end {
@@ -117,5 +117,5 @@
   background-repeat: no-repeat;
   background-size: 100%;
 
-  border: 1px solid white;
+  border: 1px solid lightgray;
 }
