@@ -1,5 +1,6 @@
 import { React, useRef } from "react";
 import "./BlocksContainer.css";
+import tooltip from "./tooltip.png";
 
 function BlocksContainer(props) {
   const {
@@ -63,32 +64,30 @@ function BlocksContainer(props) {
 
   return (
     <div className="BlocksContainer-container">
-      <div className="BlocksContainer-info">
-        <h3 className="BlocksContainer-tooltip">
-          {name}
-          <span className="BlocksContainer-tooltiptext">
-            Worst Case:
-            <span style={algorithmInfo["worst"]["style"]}>
-              {` ${algorithmInfo["worst"]["text"]}`}
-            </span>
-            <br />
-            Best Case:
-            <span style={algorithmInfo["best"]["style"]}>
-              {` ${algorithmInfo["best"]["text"]}`}
-            </span>
-            <br />
-            Average:
-            <span style={algorithmInfo["average"]["style"]}>
-              {` ${algorithmInfo["average"]["text"]}`}
-            </span>
-            <br />
-            Description:
-            <span style={{ margin: 0 }}>
-              {` ${algorithmInfo["description"]}`}
-            </span>
+      <h3 className="BlocksContainer-info">{name}</h3>
+      <div className="BlocksContainer-tooltip">
+        <img src={tooltip} className="BlocksContainer-tooltipicon" />
+        <span className="BlocksContainer-tooltiptext">
+          Worst Case:
+          <span style={algorithmInfo["worst"]["style"]}>
+            {` ${algorithmInfo["worst"]["text"]}`}
           </span>
-        </h3>
-        <h5>0.00ms</h5>
+          <br />
+          Best Case:
+          <span style={algorithmInfo["best"]["style"]}>
+            {` ${algorithmInfo["best"]["text"]}`}
+          </span>
+          <br />
+          Average:
+          <span style={algorithmInfo["average"]["style"]}>
+            {` ${algorithmInfo["average"]["text"]}`}
+          </span>
+          <br />
+          Description:
+          <span style={{ margin: 0 }}>
+            {` ${algorithmInfo["description"]}`}
+          </span>
+        </span>
       </div>
       <button
         className={

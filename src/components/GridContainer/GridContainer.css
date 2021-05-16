@@ -6,12 +6,25 @@
   width: 95%;
 }
 
+.GridContainer-info {
+  background-color: black;
+  color: white;
+  display: inline-block;
+  margin: 2% 0 1% 1%;
+  width: fit-content;
+}
+
 .GridContainer-tooltip {
-  border-bottom: 1px dotted black;
   display: inline-block;
   margin-bottom: 0px;
   position: relative;
   width: max-content;
+}
+
+.GridContainer-tooltipicon {
+  height: 12px;
+  margin-left: 8px;
+  width: 12px;
 }
 
 .GridContainer-tooltiptext {
@@ -19,11 +32,12 @@
   border-radius: 6px;
   color: black;
   font-size: 12px;
-  left: 110%;
+  font-weight: bold;
+  left: 140%;
   padding: 5px;
   position: absolute;
   text-align: left;
-  top: -5px;
+  top: -6px;
   visibility: hidden;
   width: 300px;
 }
@@ -40,14 +54,6 @@
 }
 .GridContainer-tooltip:hover .GridContainer-tooltiptext {
   visibility: visible;
-}
-
-.GridContainer-info {
-  background-color: black;
-  color: white;
-  display: inline-block;
-  margin: 1%;
-  width: 10%;
 }
 
 .GridContainer-runbutton {

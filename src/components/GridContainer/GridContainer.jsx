@@ -1,5 +1,6 @@
 import { React, useRef } from "react";
 import "./GridContainer.css";
+import tooltip from "./tooltip.png";
 
 function GridContainer(props) {
   const {
@@ -45,21 +46,20 @@ function GridContainer(props) {
 
   return (
     <div className="GridContainer-container">
-      <div className="GridContainer-info">
-        <h3 className="GridContainer-tooltip">
-          {name}
-          <span className="GridContainer-tooltiptext">
-            Worst Case:
-            <span style={algorithmInfo["worst"]["style"]}>
-              {` ${algorithmInfo["worst"]["text"]}`}
-            </span>
-            <br />
-            Description:
-            <span style={{ margin: 0 }}>
-              {` ${algorithmInfo["description"]}`}
-            </span>
+      <h3 className="GridContainer-info">{name}</h3>
+      <div className="GridContainer-tooltip">
+        <img src={tooltip} className="GridContainer-tooltipicon" />
+        <span className="GridContainer-tooltiptext">
+          Worst Case:
+          <span style={algorithmInfo["worst"]["style"]}>
+            {` ${algorithmInfo["worst"]["text"]}`}
           </span>
-        </h3>
+          <br />
+          Description:
+          <span style={{ margin: 0 }}>
+            {` ${algorithmInfo["description"]}`}
+          </span>
+        </span>
       </div>
       <button
         className={

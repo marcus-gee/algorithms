@@ -5,11 +5,25 @@
   width: 95%;
 }
 
+.BlocksContainer-info {
+  background-color: black;
+  color: white;
+  display: inline-block;
+  margin: 2% 0 10% 1%;
+  width: fit-content;
+}
+
 .BlocksContainer-tooltip {
-  border-bottom: 1px dotted black;
   display: inline-block;
   margin-bottom: 0px;
   position: relative;
+  width: max-content;
+}
+
+.BlocksContainer-tooltipicon {
+  height: 12px;
+  margin-left: 8px;
+  width: 12px;
 }
 
 .BlocksContainer-tooltiptext {
@@ -17,11 +31,12 @@
   border-radius: 6px;
   color: black;
   font-size: 12px;
-  left: 110%;
+  font-weight: bold;
+  left: 140%;
   padding: 5px;
   position: absolute;
   text-align: left;
-  top: -5px;
+  top: -6px;
   visibility: hidden;
   width: 300px;
 }
@@ -36,16 +51,9 @@
   right: 100%;
   top: 15px;
 }
+
 .BlocksContainer-tooltip:hover .BlocksContainer-tooltiptext {
   visibility: visible;
-}
-
-.BlocksContainer-info {
-  background-color: black;
-  color: white;
-  display: inline-block;
-  margin: 1%;
-  width: 10%;
 }
 
 .BlocksContainer-runbutton {

@@ -1,21 +1,21 @@
 {
   "files": {
-    "main.css": "/algorithms-visualizer/static/css/main.ebb84701.chunk.css",
-    "main.js": "/algorithms-visualizer/static/js/main.24ad7c83.chunk.js",
-    "main.js.map": "/algorithms-visualizer/static/js/main.24ad7c83.chunk.js.map",
+    "main.css": "/algorithms-visualizer/static/css/main.f36f57b6.chunk.css",
+    "main.js": "/algorithms-visualizer/static/js/main.d5a9becb.chunk.js",
+    "main.js.map": "/algorithms-visualizer/static/js/main.d5a9becb.chunk.js.map",
     "runtime-main.js": "/algorithms-visualizer/static/js/runtime-main.ab3477a0.js",
     "runtime-main.js.map": "/algorithms-visualizer/static/js/runtime-main.ab3477a0.js.map",
     "static/js/2.3a7e3f6d.chunk.js": "/algorithms-visualizer/static/js/2.3a7e3f6d.chunk.js",
     "static/js/2.3a7e3f6d.chunk.js.map": "/algorithms-visualizer/static/js/2.3a7e3f6d.chunk.js.map",
     "index.html": "/algorithms-visualizer/index.html",
-    "static/css/main.ebb84701.chunk.css.map": "/algorithms-visualizer/static/css/main.ebb84701.chunk.css.map",
+    "static/css/main.f36f57b6.chunk.css.map": "/algorithms-visualizer/static/css/main.f36f57b6.chunk.css.map",
     "static/js/2.3a7e3f6d.chunk.js.LICENSE.txt": "/algorithms-visualizer/static/js/2.3a7e3f6d.chunk.js.LICENSE.txt",
     "static/media/PathfinderApp.css": "/algorithms-visualizer/static/media/target.0e002215.png"
   },
   "entrypoints": [
     "static/js/runtime-main.ab3477a0.js",
     "static/js/2.3a7e3f6d.chunk.js",
-    "static/css/main.ebb84701.chunk.css",
-    "static/js/main.24ad7c83.chunk.js"
+    "static/css/main.f36f57b6.chunk.css",
+    "static/js/main.d5a9becb.chunk.js"
   ]
 }
