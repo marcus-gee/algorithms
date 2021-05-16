@@ -1,3 +1,3 @@
 import { initAdjacencyMatrix } from "./helpers";
 
-export function maze(start, end) {}
+export function primMaze(start, end) {}
