@@ -1,6 +1,5 @@
 import { React, useRef } from "react";
 import "./GridContainer.css";
-import tooltip from "./tooltip.png";
 
 function GridContainer(props) {
   const {
@@ -48,7 +47,7 @@ function GridContainer(props) {
     <div className="GridContainer-container">
       <h3 className="GridContainer-info">{name}</h3>
       <div className="GridContainer-tooltip">
-        <img src={tooltip} className="GridContainer-tooltipicon" />
+        <img src="./tooltip.png" className="GridContainer-tooltipicon" />
         <span className="GridContainer-tooltiptext">
           Worst Case:
           <span style={algorithmInfo["worst"]["style"]}>

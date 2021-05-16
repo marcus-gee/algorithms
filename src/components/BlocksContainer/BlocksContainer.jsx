@@ -1,6 +1,5 @@
 import { React, useRef } from "react";
 import "./BlocksContainer.css";
-import tooltip from "./tooltip.png";
 
 function BlocksContainer(props) {
   const {
@@ -66,7 +65,7 @@ function BlocksContainer(props) {
     <div className="BlocksContainer-container">
       <h3 className="BlocksContainer-info">{name}</h3>
       <div className="BlocksContainer-tooltip">
-        <img src={tooltip} className="BlocksContainer-tooltipicon" />
+        <img src="./tooltip.png" className="BlocksContainer-tooltipicon" />
         <span className="BlocksContainer-tooltiptext">
           Worst Case:
           <span style={algorithmInfo["worst"]["style"]}>
