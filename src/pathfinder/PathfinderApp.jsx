@@ -9,6 +9,7 @@ import {
   bfs,
   dfs,
 } from "./Utilities/pathfinderAlgorithms";
+import { maze } from "./Utilities/mazeGenerator";
 import { algorithmInfos } from "./Utilities/pathfinderAlgorithmInfos";
 import "./PathfinderApp.css";
 
@@ -39,7 +40,7 @@ function PathfinderApp() {
   const [walls, setWalls] = useState({});
   const [completedContainers, setCompletedContainers] = useState([]);
 
-  useEffect(resetGrid, []);
+  useEffect(resetGrid, [start, end]);
 
   function handleAlgorithmClick(value) {
     if (selected.some((item) => item === value)) {
@@ -59,13 +60,12 @@ function PathfinderApp() {
   }
 
   function randomMaze() {
-    /*
     const newGrid = grid.map((x) => x.slice());
-    const newWalls = mazeGenerator(start, end);
+    const newWalls = maze(start, end, N_ROWS, N_COLS);
 
     for (let i = 0; i < N_ROWS; i++) {
       for (let j = 0; j < N_COLS; j++) {
-        if (newGrid[i][j] == "wall" || newGrid[i][j] == "unvisited") {
+        if (newGrid[i][j] === "wall" || newGrid[i][j] === "unvisited") {
           if (newWalls[`${i}.${j}`]) {
             newGrid[i][j] = "wall";
           } else {
@@ -74,29 +74,11 @@ function PathfinderApp() {
         }
       }
     }
-    
-    setWalls(newWalls);
-    setGrid(newGrid);
-    */
-    const threshold = 0.25;
-    const newGrid = grid.map((x) => x.slice());
-    const newWalls = {};
-
-    for (let i = 0; i < N_ROWS; i++) {
-      for (let j = 0; j < N_COLS; j++) {
-        if (newGrid[i][j] == "wall" || newGrid[i][j] == "unvisited") {
-          if (Math.random() < threshold) {
-            newWalls[`${i}.${j}`] = true;
-            newGrid[i][j] = "wall";
-          } else {
-            newGrid[i][j] = "unvisited";
-          }
-        }
-      }
-    }
 
     setWalls(newWalls);
     setGrid(newGrid);
+
+    // randomWalls();
   }
 
   function randomWalls() {
@@ -106,11 +88,12 @@ function PathfinderApp() {
 
     for (let i = 0; i < N_ROWS; i++) {
       for (let j = 0; j < N_COLS; j++) {
-        if (newGrid[i][j] == "wall" || newGrid[i][j] == "unvisited") {
+        if (newGrid[i][j] === "wall" || newGrid[i][j] === "unvisited") {
           if (Math.random() < threshold) {
             newWalls[`${i}.${j}`] = true;
             newGrid[i][j] = "wall";
           } else {
+            newWalls[`${i}.${j}`] = false;
             newGrid[i][j] = "unvisited";
           }
         }
@@ -170,11 +153,13 @@ function PathfinderApp() {
             <div className="PathfinderApp-buttonscontainer">
               <button
                 className={
+                  "PathfinderApp-button maze disabled" /*
                   completedContainers.includes(true)
                     ? "PathfinderApp-button maze disabled"
                     : "PathfinderApp-button maze"
+                    */
                 }
-                disabled={completedContainers.includes(true)}
+                disabled={true /*completedContainers.includes(true)*/}
                 onClick={() => {
                   randomMaze();
                 }}
@@ -197,13 +182,13 @@ function PathfinderApp() {
               <button
                 className={
                   !completedContainers.includes(true) &&
-                  Object.keys(walls).length == 0
+                  Object.keys(walls).length === 0
                     ? "PathfinderApp-button reset disabled"
                     : "PathfinderApp-button reset"
                 }
                 disabled={
                   !completedContainers.includes(true) &&
-                  Object.keys(walls).length == 0
+                  Object.keys(walls).length === 0
                 }
                 onClick={() => {
                   resetGrid();

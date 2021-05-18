@@ -66,7 +66,7 @@ function BlocksContainer(props) {
     <div className="BlocksContainer-container">
       <h3 className="BlocksContainer-info">{name}</h3>
       <div className="BlocksContainer-tooltip">
-        <img src={tooltip} className="BlocksContainer-tooltipicon" />
+        <img src={tooltip} className="BlocksContainer-tooltipicon" alt="" />
         <span className="BlocksContainer-tooltiptext">
           Worst Case:
           <span style={algorithmInfo["worst"]["style"]}>

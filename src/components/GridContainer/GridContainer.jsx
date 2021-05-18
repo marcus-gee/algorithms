@@ -48,7 +48,7 @@ function GridContainer(props) {
     <div className="GridContainer-container">
       <h3 className="GridContainer-info">{name}</h3>
       <div className="GridContainer-tooltip">
-        <img src={tooltip} className="GridContainer-tooltipicon" />
+        <img src={tooltip} className="GridContainer-tooltipicon" alt="" />
         <span className="GridContainer-tooltiptext">
           Worst Case:
           <span style={algorithmInfo["worst"]["style"]}>
@@ -90,12 +90,12 @@ function GridContainer(props) {
                   onClick={() => {
                     const newGrid = grid.map((x) => x.slice());
                     const newWalls = Object.assign(walls, {});
-                    if (grid[i][j] == "unvisited") {
+                    if (grid[i][j] === "unvisited") {
                       newGrid[i][j] = "wall";
                       newWalls[`${i}.${j}`] = true;
-                    } else if (grid[i][j] == "wall") {
+                    } else if (grid[i][j] === "wall") {
                       newGrid[i][j] = "unvisited";
-                      delete newWalls[`${i}.${j}`];
+                      newWalls[`${i}.${j}`] = false;
                     }
                     setGrid(newGrid);
                     setWalls(newWalls);
