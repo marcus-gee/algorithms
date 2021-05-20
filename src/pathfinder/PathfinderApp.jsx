@@ -9,7 +9,7 @@ import {
   bfs,
   dfs,
 } from "./Utilities/pathfinderAlgorithms";
-import { maze } from "./Utilities/mazeGenerator";
+import { randomMazeWalls } from "./Utilities/randomMaze";
 import { algorithmInfos } from "./Utilities/pathfinderAlgorithmInfos";
 import "./PathfinderApp.css";
 
@@ -26,8 +26,8 @@ const SORT_SPEED_MAX = 100;
 const SORT_SPEED_STEP = 1;
 const SORT_SPEED_DEFAULT = 95;
 
-const N_ROWS = 30;
-const N_COLS = 100;
+const N_ROWS = 29;
+const N_COLS = 99;
 const DEFAULT_START = [7, 5];
 const DEFAULT_END = [22, 94];
 
@@ -61,7 +61,7 @@ function PathfinderApp() {
 
   function randomMaze() {
     const newGrid = grid.map((x) => x.slice());
-    const newWalls = maze(start, end, N_ROWS, N_COLS);
+    const newWalls = randomMazeWalls(start, end, N_ROWS, N_COLS);
 
     for (let i = 0; i < N_ROWS; i++) {
       for (let j = 0; j < N_COLS; j++) {
@@ -77,8 +77,6 @@ function PathfinderApp() {
 
     setWalls(newWalls);
     setGrid(newGrid);
-
-    // randomWalls();
   }
 
   function randomWalls() {
@@ -153,13 +151,11 @@ function PathfinderApp() {
             <div className="PathfinderApp-buttonscontainer">
               <button
                 className={
-                  "PathfinderApp-button maze disabled" /*
                   completedContainers.includes(true)
                     ? "PathfinderApp-button maze disabled"
                     : "PathfinderApp-button maze"
-                    */
                 }
-                disabled={true /*completedContainers.includes(true)*/}
+                disabled={completedContainers.includes(true)}
                 onClick={() => {
                   randomMaze();
                 }}
