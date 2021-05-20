@@ -111,14 +111,14 @@
 }
 
 .start {
-  background-image: url("Utilities/arrow.png");
+  background-image: url("../images/arrow.png");
   background-position: center;
   background-repeat: no-repeat;
   background-size: 60%;
 }
 
 .end {
-  background-image: url("Utilities/target.png");
+  background-image: url("../images/target.png");
   background-position: center;
   background-repeat: no-repeat;
   background-size: 100%;

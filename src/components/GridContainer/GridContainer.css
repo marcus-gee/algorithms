@@ -109,7 +109,7 @@
 }
 
 .GridContainer-start {
-  background-image: url("arrow.png");
+  background-image: url("../../images/arrow.png");
   background-position: center;
   background-repeat: no-repeat;
   background-size: 60%;
@@ -118,7 +118,7 @@
 }
 
 .GridContainer-end {
-  background-image: url("target.png");
+  background-image: url("../../images/target.png");
   background-position: center;
   background-repeat: no-repeat;
   background-size: 100%;

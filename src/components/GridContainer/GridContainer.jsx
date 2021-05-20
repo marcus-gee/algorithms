@@ -1,5 +1,5 @@
 import { React, useRef } from "react";
-import tooltip from "./tooltip.png";
+import tooltip from "../../images/tooltip.png";
 import "./GridContainer.css";
 
 function GridContainer(props) {
