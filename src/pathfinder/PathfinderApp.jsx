@@ -3,14 +3,14 @@ import AlgoPicker from "../components/AlgoPicker/AlgoPicker.jsx";
 import Slider from "../components/Slider/Slider.jsx";
 import GridContainer from "../components/GridContainer/GridContainer.jsx";
 import {
+  algorithmInfos,
   djikstra,
   aStarManhattanDistance,
   aStarCrossProduct,
   bfs,
   dfs,
 } from "./Utilities/pathfinderAlgorithms";
-import { randomMazeWalls } from "./Utilities/randomMaze";
-import { algorithmInfos } from "./Utilities/pathfinderAlgorithmInfos";
+import { randomMazeWalls } from "./Utilities/maze";
 import "./PathfinderApp.css";
 
 const ALGORITHMS = {

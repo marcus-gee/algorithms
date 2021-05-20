@@ -10,6 +10,39 @@ import {
   initDistances,
 } from "./helpers";
 
+/* -------------------------------------------------------------------------- */
+
+export const algorithmInfos = {
+  "Djikstra's": {
+    worst: { text: "O(|E| + |V|log|V|)", style: { color: "black", margin: 0 } },
+    description:
+      "Djikstra's algorithm is a weighted algorithm that guarantees the shortest path. The algorithm uses a Priority Queue to find the next unvisited vertex with the smallest distance, calculates the distance through it to each unvisited neighbor, and updates the neighbor's distance if smaller.",
+  },
+  "A\u002A -  Manhattan Distance": {
+    worst: { text: "O(|E|)", style: { color: "black", margin: 0 } },
+    description:
+      "A* algorithm is a weighted algorithm that guarantees the shortest path. This version uses Manhattan Distance as its heuristic when enqueuing nodes into its Priority Queue when to consider future notes to visit.",
+  },
+  "A\u002A - Cross Product": {
+    worst: { text: "O(|E|)", style: { color: "black", margin: 0 } },
+    //
+    description:
+      "A* algorithm is a weighted algorithm that guarantees the shortest path. This version uses the cross product between the start to end vector and the current cell to end vector as its heuristic when enqueuing nodes into its Priority Queue when to consider future notes to visit.",
+  },
+  "Breadth First Search": {
+    worst: { text: "O(|V| + |E|)", style: { color: "black", margin: 0 } },
+    description:
+      "Breadth First Search is an unweighted algorithm that guarantees the shortest path. BFS uses a Queue (FIFO) to explores all the nodes at the present depth before moving on to the nodes at the next depth level.",
+  },
+  "Depth First Search": {
+    worst: { text: "O(|V| + |E|)", style: { color: "black", margin: 0 } },
+    description:
+      "Depth First Search is an unweighted algorithm that does not guarantees the shortest path. DFS uses a Stack (LIFO) to explore nodes of a tree or graph and goes as far as it can down a given branch (path), then backtracks until it finds an unexplored path, and then explores it.",
+  },
+};
+
+/* -------------------------------------------------------------------------- */
+
 export function djikstra(start, end, maxRow, maxCol, walls, weights) {
   let animations = [];
 

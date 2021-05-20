@@ -3,6 +3,7 @@ import AlgoPicker from "../components/AlgoPicker/AlgoPicker.jsx";
 import Slider from "../components/Slider/Slider.jsx";
 import BlocksContainer from "../components/BlocksContainer/BlocksContainer.jsx";
 import {
+  algorithmInfos,
   bubbleSort,
   bucketSort,
   heapSort,
@@ -12,7 +13,6 @@ import {
   radixSort,
   selectionSort,
 } from "./Utilities/sortingAlgorithms";
-import { algorithmInfos } from "./Utilities/sortingAlgorithmInfos";
 import "./SorterApp.css";
 
 const BLOCK_NUM_MIN = 10;
