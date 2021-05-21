@@ -84,7 +84,7 @@ function GridContainer(props) {
     setMouseDown(true);
   }
 
-  function onMouseUp(i, j) {
+  function onMouseUp() {
     if (startMoving) {
       setStartMoving(false);
     } else if (endMoving) {
@@ -148,9 +148,8 @@ function GridContainer(props) {
               {localGrid[i].map((_, j) => (
                 <td
                   className={`GridContainer-${localGrid[i][j]}`}
-                  onClick={() => onClick(i, j)}
                   onMouseDown={() => onMouseDown(i, j)}
-                  onMouseUp={() => onMouseUp(i, j)}
+                  onMouseUp={() => onMouseUp()}
                   onMouseEnter={() => onMouseEnter(i, j)}
                   key={j}
                 ></td>
