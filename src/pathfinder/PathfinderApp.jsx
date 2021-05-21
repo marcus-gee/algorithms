@@ -235,7 +235,9 @@ function PathfinderApp() {
             grid={grid}
             setGrid={setGrid}
             start={start}
+            setStart={setStart}
             end={end}
+            setEnd={setEnd}
             walls={walls}
             setWalls={setWalls}
             completedContainers={completedContainers}
